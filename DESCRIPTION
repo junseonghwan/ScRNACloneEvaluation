@@ -1,4 +1,4 @@
-Package: VAFclusterEM2
+Package: VAFclusterEM
 Type: Package
 Title: Performs clustering of VAF data -- added feature for getting clone tree.
 Version: 0.1.1
