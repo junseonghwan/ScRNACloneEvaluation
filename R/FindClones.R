@@ -33,6 +33,7 @@ GetClones <- function(vafs,
     cluster_labels
 }
 
+#' @export
 ExtractChains <- function(file_path, mutation_count) {
     if (!file.exists(file_path)) {
         stop(paste(file_path, "does not exist."))
