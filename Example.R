@@ -6,10 +6,6 @@ library(Rcpp)
 library(VAFclusterEM)
 #devtools::install_github("junseonghwan/VAFclusterEM")
 #load_all()
-#sourceCpp("src/rcpp_hello_world.cpp")
-#source("R/VAFclusterEM.R")
-#source("R/FindClones.R")
-#source("R/bestAICsearch.R")
 
 # Cluster the data points by chain.
 ssm <- read.table("/Users/seonghwanjun/data/binary_cn/case5/sim0/rep19/genotype_ssm.txt", header=T)

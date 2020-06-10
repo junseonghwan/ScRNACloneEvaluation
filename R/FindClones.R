@@ -8,6 +8,7 @@ ExtractChains <- function(file_path, mutation_count) {
     chains <- GetChains(parent_vec)
 }
 
+#' @export
 GetClones <- function(vafs,
                       file_path,
                       seed = 1,
