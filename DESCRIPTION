@@ -8,3 +8,4 @@ Description: Gaussian mixture model of VAF data with fixed variances
 License: What license is it under?
 LazyData: TRUE
 LinkingTo: Rcpp
+RoxygenNote: 7.0.2
