@@ -5,6 +5,7 @@ library(sabre)
 library(Rcpp)
 library(VAFclusterEM)
 #devtools::install_github("junseonghwan/VAFclusterEM", force=TRUE)
+#remove.packages("VAFclusterEM2", lib = "/Library/Frameworks/R.framework/Resources/library")
 #load_all()
 
 # Cluster the data points by chain.
