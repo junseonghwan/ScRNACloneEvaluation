@@ -1,9 +1,9 @@
 Package: VAFclusterEM
 Type: Package
-Title: Performs clustering of VAF data
+Title: Performs clustering of VAF data -- added feature for getting clone tree.
 Version: 0.1.1
-Author: Jack Kuipers
-Maintainer: <jack.kuipers@bsse.ethz.ch>
+Author: Jack Kuipers, Seong-Hwan Jun
+Maintainer: <s2jun.uw@gmail.com>
 Description: Gaussian mixture model of VAF data with fixed variances
 License: What license is it under?
 LazyData: TRUE
