@@ -1,4 +1,4 @@
-#' @export
+#'@export
 GetClones <- function(vafs,
                       file_path,
                       seed = 1,
