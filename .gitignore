@@ -2,4 +2,5 @@
 .Rproj.user
 src/*.o
 src/*.so
-*/RcppExports.*
+src/RcppExports.cpp
+R/RcppExports.R

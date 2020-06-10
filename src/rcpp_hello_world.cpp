@@ -12,6 +12,7 @@
 using namespace Rcpp;
 using namespace std;
 
+//' @export
 // [[Rcpp::export]]
 String ReadParentVector(String file_path, size_t mutation_count) {
   Rcout << "Reading...\n";
@@ -30,6 +31,7 @@ String ReadParentVector(String file_path, size_t mutation_count) {
   return line;
 }
 
+//' @export
 // [[Rcpp::export]]
 NumericVector GetChains(NumericVector parent_vector) {
   size_t node_count = parent_vector.size();
