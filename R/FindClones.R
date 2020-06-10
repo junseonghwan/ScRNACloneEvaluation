@@ -38,8 +38,8 @@ ExtractChains <- function(file_path, mutation_count) {
     if (!file.exists(file_path)) {
         stop(paste(file_path, "does not exist."))
     }
-    ret_str <- ReadParentVector(file_path, mutation_count)
+    ret_str <- VAFclusterEM::ReadParentVector(file_path, mutation_count)
     parent_vec_str <- strsplit(strsplit(ret_str, "\t")[[1]][2], " ")[[1]]
     parent_vec <- as.numeric(parent_vec_str)
-    chains <- GetChains(parent_vec)
+    chains <- VAFclusterEM::GetChains(parent_vec)
 }
