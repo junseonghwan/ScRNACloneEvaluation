@@ -1,27 +1,16 @@
 // [[Rcpp::plugins("cpp17")]]
 
-#include <cmath>
+#include <Rcpp.h>
 #include <deque>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
-#include <Rcpp.h>
 
 #include "node.hpp"
 
 using namespace Rcpp;
 using namespace std;
-
-// [[Rcpp::export]]
-List rcpp_hello_world() {
-
-    CharacterVector x = CharacterVector::create( "foo", "bar" )  ;
-    NumericVector y   = NumericVector::create( 0.0, 1.0 ) ;
-    List z            = List::create( x, y ) ;
-
-    return z ;
-}
 
 // [[Rcpp::export]]
 String ReadParentVector(String file_path, size_t mutation_count) {
