@@ -1,12 +1,12 @@
 // [[Rcpp::plugins("cpp17")]]
 
-#include <Rcpp.h>
 #include <cmath>
 #include <deque>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <Rcpp.h>
 
 #include "node.hpp"
 
