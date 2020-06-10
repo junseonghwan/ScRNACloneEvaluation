@@ -30,26 +30,20 @@ List rcpp_hello_world() {
 
 // [[Rcpp::export]]
 string ReadParentVector(string file_path, size_t mutation_count) {
-    Rcout << "Reading " << file_path << "\n";
+  Rcout << "Reading " << file_path << "\n";
 
-    ifstream dat_file (file_path);
-    if (!dat_file.is_open())
-    {
-        Rcout << "Could not open the file: " << file_path << "\n";
-        exit(-1);
-    }
-    Rcout << "Reading the file.\n";
+  ifstream dat_file (file_path);
 
-    NumericVector vec(mutation_count);
-    string line;
-    // Optimal parent vector is on line 2 * mutation_count + 4.
-    size_t line_no = 2 * mutation_count + 4;
-    for (size_t i = 0; i < line_no; i++) {
-        getline(dat_file, line);
-    }
-    Rcout << line << "\n";
-    dat_file.close();
-    return line;
+  NumericVector vec(mutation_count);
+  string line;
+  // Optimal parent vector is on line 2 * mutation_count + 4.
+  size_t line_no = 2 * mutation_count + 4;
+  for (size_t i = 0; i < line_no; i++) {
+      getline(dat_file, line);
+  }
+  Rcout << line << "\n";
+  dat_file.close();
+  return line;
 }
 
 // [[Rcpp::export]]
