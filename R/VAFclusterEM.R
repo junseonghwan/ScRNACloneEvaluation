@@ -1,4 +1,3 @@
-#'@export
 VAFclusterEM <- function(dataVec, coverage, kclust, startseed=100, nIterations=40, verbose=FALSE) {
 
     # Check for input arguments

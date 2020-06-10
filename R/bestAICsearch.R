@@ -1,4 +1,3 @@
-#'@export
 bestAICsearch <- function(dataVec, minK = 2, maxK, coverage, startseed = 100, nIterations = 40, breakOnIncrease=FALSE, verbose=FALSE) {
     ### Check input parameters
     if(missing(maxK)) stop("Need to input maximum number of clusters k.")
