@@ -16,12 +16,12 @@ BEGIN_RCPP
 END_RCPP
 }
 // ReadParentVector
-string ReadParentVector(string file_path, size_t mutation_count);
+String ReadParentVector(String file_path, size_t mutation_count);
 RcppExport SEXP _VAFclusterEM_ReadParentVector(SEXP file_pathSEXP, SEXP mutation_countSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< string >::type file_path(file_pathSEXP);
+    Rcpp::traits::input_parameter< String >::type file_path(file_pathSEXP);
     Rcpp::traits::input_parameter< size_t >::type mutation_count(mutation_countSEXP);
     rcpp_result_gen = Rcpp::wrap(ReadParentVector(file_path, mutation_count));
     return rcpp_result_gen;

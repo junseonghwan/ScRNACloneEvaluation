@@ -6,12 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <stack>
 #include <vector>
-#include <unordered_set>
-#include <unordered_map>
-#include <gsl/gsl_sf.h>
 
 #include "node.hpp"
 
@@ -29,8 +24,8 @@ List rcpp_hello_world() {
 }
 
 // [[Rcpp::export]]
-string ReadParentVector(string file_path, size_t mutation_count) {
-  Rcout << "Reading " << file_path << "\n";
+String ReadParentVector(String file_path, size_t mutation_count) {
+  Rcout << "Reading...\n";
 
   ifstream dat_file (file_path);
 
