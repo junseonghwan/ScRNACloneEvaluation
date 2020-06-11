@@ -1,6 +1,5 @@
-# VAFclusterEM
+# Code for evaluating ScRNA Clone experiments
 
-Forked from https://github.com/smalikic/B-SCITE/tree/master/VAFclusterEMpackage/VAFclusterEM.
+[VAFclusterEMpackage](https://github.com/smalikic/B-SCITE/tree/master/VAFclusterEMpackage/VAFclusterEM) is extended with the feature to extract clones from mutation tree.
 
-- Added feature for extracting clones from mutation tree.
-- Making it into a repository for easy installation.
+
