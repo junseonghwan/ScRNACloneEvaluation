@@ -1,0 +1,6 @@
+[submodule "bulk-sc"]
+	path = bulk-sc
+	url = https://github.com/junseonghwan/bulk-sc.git
+[submodule "B-SCITE"]
+	path = B-SCITE
+	url = https://github.com/junseonghwan/B-SCITE.git
