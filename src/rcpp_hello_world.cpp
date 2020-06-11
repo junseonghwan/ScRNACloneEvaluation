@@ -14,7 +14,7 @@ using namespace std;
 
 //' @export
 // [[Rcpp::export]]
-string ReadParentVector(string file_path, size_t mutation_count) {
+String ReadParentVector(String file_path, size_t mutation_count) {
   Rcout << "Reading...\n";
 
   ifstream dat_file (file_path);

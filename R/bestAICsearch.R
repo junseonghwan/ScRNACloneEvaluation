@@ -1,3 +1,5 @@
+source("R/VAFclusterEM.R")
+
 #' @export
 bestAICsearch <- function(dataVec, minK = 2, maxK, coverage, startseed = 100, nIterations = 40, breakOnIncrease=FALSE, verbose=FALSE) {
     ### Check input parameters
@@ -21,7 +23,7 @@ bestAICsearch <- function(dataVec, minK = 2, maxK, coverage, startseed = 100, nI
           print(paste("Now testing",kk,"cluster."))
         }
       }
-      bestCluster <- VAFclusterEM::VAFclusterEM(dataVec = dataVec, coverage = coverage, kclust = kk, startseed = startseed, nIterations = nIterations)
+      bestCluster <- VAFclusterEM(dataVec = dataVec, coverage = coverage, kclust = kk, startseed = startseed, nIterations = nIterations)
       if(verbose==TRUE){
         print(paste("The AIC is",bestCluster$AIC))
       }

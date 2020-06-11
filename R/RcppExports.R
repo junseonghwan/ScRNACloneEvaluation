@@ -3,11 +3,11 @@
 
 #' @export
 ReadParentVector <- function(file_path, mutation_count) {
-    .Call('_VAFclusterEM_ReadParentVector', PACKAGE = 'VAFclusterEM', file_path, mutation_count)
+    .Call(`_ScRNACloneEvaluation_ReadParentVector`, file_path, mutation_count)
 }
 
 #' @export
 GetChains <- function(parent_vector) {
-    .Call('_VAFclusterEM_GetChains', PACKAGE = 'VAFclusterEM', parent_vector)
+    .Call(`_ScRNACloneEvaluation_GetChains`, parent_vector)
 }
 

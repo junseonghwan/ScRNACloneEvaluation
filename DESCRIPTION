@@ -1,10 +1,10 @@
-Package: VAFclusterEM
+Package: ScRNACloneEvaluation
 Type: Package
-Title: Performs clustering of VAF data -- added feature for getting clone tree.
+Title: ScRNA clone evaluation.
 Version: 0.1.1
-Author: Jack Kuipers, Seong-Hwan Jun
+Author: Seong-Hwan Jun
 Maintainer: <s2jun.uw@gmail.com>
-Description: Gaussian mixture model of VAF data with fixed variances
+Description: Bulk DNA-seq and Single cell RNA-seq clone construction. This repository evaluates simulation studies.
 License: What license is it under?
 LazyData: TRUE
 LinkingTo: Rcpp
