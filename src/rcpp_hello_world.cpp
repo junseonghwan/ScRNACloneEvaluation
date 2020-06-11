@@ -14,7 +14,7 @@ using namespace std;
 
 //' @export
 // [[Rcpp::export]]
-String ReadParentVector(String file_path, size_t mutation_count) {
+string ReadParentVector(string file_path, size_t mutation_count) {
   Rcout << "Reading...\n";
 
   ifstream dat_file (file_path);
@@ -24,9 +24,9 @@ String ReadParentVector(String file_path, size_t mutation_count) {
   // Optimal parent vector is on line 2 * mutation_count + 4.
   size_t line_no = 2 * mutation_count + 4;
   for (size_t i = 0; i < line_no; i++) {
-      getline(dat_file, line);
+    getline(dat_file, line);
   }
-  Rcout << line << "\n";
+  Rcout << line_no << ": " << line << "\n";
   dat_file.close();
   return line;
 }
