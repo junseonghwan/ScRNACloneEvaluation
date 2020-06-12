@@ -2,35 +2,40 @@ rm(list=ls())
 
 library(devtools)
 library(dplyr)
+library(ggplot2)
 library(Rcpp)
 library(sabre)
 sourceCpp("src/rcpp_hello_world.cpp")
 source("R/FindClones.R")
+source("R/EvaluationFunctions.R")
 
-data_path <- "/Users/seonghwanjun/data/simulation/binary/case4/sim0/rep0"
-true_clusters <- read.table(paste(data_path, "cluster_labels.txt", sep="/"), header=F, sep=",")
-cell_prevs <- read.table(paste(data_path, "cellular_prev.csv", sep="/"), header=F, sep=",")
+n_cases <- 4 # not inclusive
+sim_path <- "/Users/seonghwanjun/data/simulation/binary"
+expression_levels <- c(0, 10, 20, 40)
+df <- data.frame()
+for (case in 1:n_cases) {
+    sim_case_path <- paste(sim_path, "/case", (case-1), "/sim0", sep="")
+    # Check that our simulation runs have completed.
+    CheckSimulationCompleted(sim_case_path)
+    vmeas <- ComputeVMeasure(sim_case_path)
+    cp_err <- GetCellPrevError(sim_case_path)
+    df <- rbind(df, data.frame(Method="Ours", ExprLevel=expression_levels[case], VMeasure = vmeas, CellPrevErr = cp_err))
 
-length(unique(true_clusters$V2))
+    # ddClone
+    if (case > 1) {
+        ddClone_results <- GetDDCloneResults(sim_case_path)
+        df <- rbind(df, data.frame(Method="ddClone", ExprLevel=expression_levels[case], VMeasure = ddClone_results$vmeasure, CellPrevErr = ddClone_results$mean_abs_err))
 
-# ddClone
-ddclone <- read.table(paste(data_path, "ddClone", "results.txt", sep="/"), header=T)
-vmeasure(true_clusters$V2, ddclone$clusterID)
-length(unique(ddclone$clusterID))
-mean(abs(ddclone$phi - cell_prevs$V2))
+        bscite_results <- GetBSciteResults(sim_case_path)
+        df <- rbind(df, data.frame(Method="B-SCITE", ExprLevel=expression_levels[case], VMeasure = bscite_results$vmeasure, CellPrevErr = bscite_results$mean_abs_err))
+    }
+}
 
-# B-SCITE
-ssms <- read.table(paste(data_path, "genotype_ssm.txt", sep="/"), header=T)
-vafs <- ssms$b/ssms$d
-mutation_count <- length(vafs)
-bscite_output <- paste(data_path, "bscite", "bscite.matrices", sep="/")
-bscite_clones <- GetClones(vafs, bscite_output)
-length(unique(bscite_clones))
-vmeasure(true_clusters$V2, bscite_clones)
+names(df)
+p <- ggplot(na.omit(df), aes(x = as.factor(ExprLevel), y = VMeasure)) + geom_boxplot() + theme_bw()
+p <- p + facet_wrap(~ Method) + xlab("Expression Levels")
+ggsave("/Users/seonghwanjun/Dropbox/Research/papers/sc-bulk-phylo/figures/V-measure-comparison.pdf", p)
 
-# Our method
-ours <- read.table(paste(data_path, "genotype", "joint", "tree0", "cluster_labels.txt", sep="/"), header=F, sep=",")
-ours_cp <- read.table(paste(data_path, "genotype", "joint", "tree0", "cellular_prev.csv", sep="/"), header=F, sep=",")
-vmeasure(true_clusters$V2, ours$V2)
-length(unique(ours$V2))
-mean(abs(ours_cp$V2 - cell_prevs$V2))
+p <- ggplot(na.omit(df), aes(x = as.factor(ExprLevel), y = CellPrevErr)) + geom_boxplot() + theme_bw()
+p <- p + facet_wrap(~ Method) + xlab("Expression Levels") + ylab("Mean Abs Error")
+ggsave("/Users/seonghwanjun/Dropbox/Research/papers/sc-bulk-phylo/figures/mean-abs-error.pdf", p)

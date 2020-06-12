@@ -15,7 +15,7 @@ using namespace std;
 //' @export
 // [[Rcpp::export]]
 String ReadParentVector(String file_path, size_t mutation_count) {
-  Rcout << "Reading...\n";
+  //Rcout << "Reading...\n";
 
   ifstream dat_file (file_path);
 
@@ -26,7 +26,7 @@ String ReadParentVector(String file_path, size_t mutation_count) {
   for (size_t i = 0; i < line_no; i++) {
     getline(dat_file, line);
   }
-  Rcout << line_no << ": " << line << "\n";
+  //Rcout << line_no << ": " << line << "\n";
   dat_file.close();
   return line;
 }
@@ -34,6 +34,7 @@ String ReadParentVector(String file_path, size_t mutation_count) {
 //' @export
 // [[Rcpp::export]]
 NumericVector GetChains(NumericVector parent_vector) {
+  Rcout << "Identifying chains from mutation tree...\n";
   size_t node_count = parent_vector.size();
   vector<Node *> nodes;
   NumericVector chain_labels(node_count);
@@ -45,16 +46,16 @@ NumericVector GetChains(NumericVector parent_vector) {
   for (size_t i = 0; i < node_count; i++) {
     size_t parent_idx = parent_vector[i];
     nodes[parent_idx]->add_child(nodes[i]);
-    Rcout << "node: " << nodes[i]->get_id() << ", parent: " << parent_idx << "\n";
+    //Rcout << "node: " << nodes[i]->get_id() << ", parent: " << parent_idx << "\n";
   }
 
-  for (size_t i = 0; i <= node_count; i++) {
-      Rcout << "node: " << nodes[i]->get_id() << ", children: [ ";
-      for (auto child : nodes[i]->get_children()) {
-          Rcout << child->get_id() << " ";
-      }
-      Rcout << "]\n";
-  }
+  // for (size_t i = 0; i <= node_count; i++) {
+  //     Rcout << "node: " << nodes[i]->get_id() << ", children: [ ";
+  //     for (auto child : nodes[i]->get_children()) {
+  //         Rcout << child->get_id() << " ";
+  //     }
+  //     Rcout << "]\n";
+  // }
 
   size_t chain_id = 0;
   deque<Node *> queue;
@@ -63,11 +64,11 @@ NumericVector GetChains(NumericVector parent_vector) {
   }
   while (!queue.empty()) {
     auto node = queue.back();
-    Rcout << node->get_id() << "\n";
+    //Rcout << node->get_id() << "\n";
     queue.pop_back();
     while (true) {
         chain_labels(node->get_id()) = chain_id;
-        Rcout << "num children: " << node->get_children().size() << "\n";
+        //Rcout << "num children: " << node->get_children().size() << "\n";
         if (node->get_children().size() == 1) {
             node = node->get_children()[0];
         } else {

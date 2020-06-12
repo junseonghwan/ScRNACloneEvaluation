@@ -15,7 +15,7 @@ parser.add_argument('--sbegin', help="Sim begin.", type=int, default = 0)
 parser.add_argument('--send', help="Sim end (not inclusive).", type=int, default = 1)
 parser.add_argument('--rbegin', help="Rep begin.", type=int, default = 0)
 parser.add_argument('--rend', help="Rep end (not inclusive).", type=int, default = 20)
-parser.add_argument('-m', '--mcmc', help="Number of MCMC iterations.", type=int, default = 100000)
+parser.add_argument('-m', '--mcmc', help="Number of MCMC iterations.", type=int, default = 10000)
 parser.add_argument('-o', '--output_prefix', help="Output prefix.", type=str, default = "bscite")
 args = parser.parse_args()
 

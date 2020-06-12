@@ -2,7 +2,7 @@ args = commandArgs(trailingOnly=TRUE)
 print(args)
 data_path <- args[1]
 mcmc_iter <- args[2]
-#data_path <- "/Users/seonghwanjun/data/simulation/binary/case4/sim0/rep0"
+#data_path <- "/Users/seonghwanjun/data/simulation/binary/case0/sim0/rep0"
 
 library(ddclone)
 library(dplyr)
@@ -22,17 +22,24 @@ bulkDat <- data.frame("mutation_id" = bulk$ID,
                       "minor_cn" = bulk$minor_cn,
                       "major_cn" = bulk$major_cn)
 
-sc$ID <- factor(sc$ID, levels = bulk$ID)
-sc$b <- sc$d - sc$a
-sc$z <- as.numeric(sc$b >= SC_READ_THRESHOLD)
-sum(sc$z)
-genDat <- dcast(sc, formula = Cell ~ ID, value.var = "z")
-genDat <- genDat[,-1]
-genDat[is.na(genDat)] <- 0
-dim(genDat)
-genDat[0]
+if (dim(sc)[1] > 0) {
+    sc$ID <- factor(sc$ID, levels = bulk$ID)
+    sc$b <- sc$d - sc$a
+    sc$z <- as.numeric(sc$b >= SC_READ_THRESHOLD)
+    sum(sc$z)
+    genDat <- dcast(sc, formula = Cell ~ ID, value.var = "z")
+    genDat <- genDat[,-1]
+    genDat[is.na(genDat)] <- 0
+} else {
+    n_snvs <- dim(bulk)[1]
+    genDat <- as.data.frame(matrix(0, nrow = 1, ncol = n_snvs))
+    names(genDat) <- bulk$ID
+}
 
 output_path <- paste(data_path, "ddClone", sep="/")
+if (!dir.exists(output_path)) {
+    dir.create(output_path, recursive = TRUE)
+}
 ddCloneInputObj <- make.ddclone.input(bulkDat = bulkDat, genDat = genDat, outputPath = output_path, nameTag = '')
 ddCloneRes <- ddclone(dataObj = ddCloneInputObj,
                       outputPath = output_path, tumourContent = 1.0,
