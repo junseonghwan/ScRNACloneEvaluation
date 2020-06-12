@@ -1,13 +1,13 @@
 args = commandArgs(trailingOnly=TRUE)
 print(args)
 data_path <- args[1]
-mcmc_iter <- args[2]
-#data_path <- "/Users/seonghwanjun/data/simulation/binary/case0/sim0/rep0"
+mcmc_iter <- as.numeric(args[2])
+print(mcmc_iter)
+#data_path <- "/Users/seonghwanjun/data/simulation/binary/case4/sim0/rep0"
 
 library(ddclone)
 library(dplyr)
 library(reshape2)
-library(sabre)
 
 SC_READ_THRESHOLD <- 5
 
@@ -46,7 +46,7 @@ ddCloneRes <- ddclone(dataObj = ddCloneInputObj,
                       numOfIterations = mcmc_iter, thinning = 10, burnIn = 0,
                       seed = 1)
 
-# Output v-measure and cellular prevalences for comparison purposes.
+# Output the results.
 df <- ddCloneRes$df
 output_file <- paste(output_path, "results.txt", sep="/")
 write.table(df, file = output_file, row.names = F, col.names = T, quote=F)

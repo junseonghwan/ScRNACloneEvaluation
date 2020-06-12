@@ -14,10 +14,10 @@ wait
 SIMUL_PATH=$1
 CONFIG_FILE=$2
 
-Rscript --vanilla ../Rscripts/GenerateInputForSimulatedStudy.R \
+Rscript --vanilla Rscripts/GenerateInputForSimulatedStudy.R \
 	${SIMUL_PATH} 
 wait
 
-./../run -c ${CONFIG_FILE}
+./../bulk-sc/run -c ${CONFIG_FILE}
 
 echo "$(date) Run finished."

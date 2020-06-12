@@ -87,5 +87,5 @@ for sim_no in range(SIM_BEGIN, SIM_END):
         run_command += PATH_TO_EXECUTABLE + " "
         run_command += REP_PATH + " "
         run_command += config_file_path
-        print(run_command)
-        #os.system(run_command)
+        #print(run_command)
+        os.system(run_command)

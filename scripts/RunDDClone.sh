@@ -14,7 +14,7 @@ wait
 SIMUL_PATH=$1
 MCMC_ITER=$2
 
-Rscript --vanilla ../Rscripts/RunDDClone.R \
+Rscript --vanilla Rscripts/RunDDClone.R \
 	${SIMUL_PATH} ${MCMC_ITER}
 
 echo "$(date) Run finished."
