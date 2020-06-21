@@ -63,7 +63,7 @@ rule ichorCNA:
 		plotFileType=config["ichorCNA_plotFileType"],
 		plotYlim=config["ichorCNA_plotYlim"]
 	resources:
-		mem=4
+		mem=32
 	log:
 		"/proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/ichorCNA/{tumor}.log"	
 	shell:
