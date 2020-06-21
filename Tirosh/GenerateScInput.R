@@ -13,45 +13,55 @@ library(matrixStats)
 library(ScRNAClone)
 library(TailRank)
 
-#config_file <- "/Users/seonghwanjun/ScRNACloneEvaluation/Laks/ConfigLocal.txt"
+config_file <- "/Users/seonghwanjun/ScRNACloneEvaluation/Laks/ConfigLocal.txt"
 
 config_file <- args[1]
 config <- read.table(config_file, header=F, as.is = TRUE)
 print(config)
 keys <- as.character(config$V1)
 values <- as.character(config$V2)
-ssm_file <- values[keys == "SNV"]
+SNV_PATH <- values[keys == "SNV_PATH"]
 OUTPUT_PATH <- values[keys == "OUTPUT_PATH"]
+OUTPUT_PREFIX <- values[keys == "OUTPUT_PREFIX"]
 SC_READS_PATH <- values[keys == "SC_READS_PATH"]
 MIN_CELLS <- as.numeric(values[keys == "MIN_CELLS"])
 
-ssm_final_outfile <- paste(OUTPUT_PATH, "final_ssm.txt", sep="/")
-sc_final_outfile <- paste(OUTPUT_PATH, "final_sc.txt", sep="/")
-sc_hp_final_outfile <- paste(OUTPUT_PATH, "final_sc_hp.txt", sep="/")
+ssm_final_outfile <- paste(OUTPUT_PATH, "/", OUTPUT_PREFIX, "ssm.txt", sep="")
+sc_raw_outfile <- paste(OUTPUT_PATH, "/", OUTPUT_PREFIX, "sc_raw.txt", sep="")
+sc_final_outfile <- paste(OUTPUT_PATH, "/", OUTPUT_PREFIX, "sc.txt", sep="")
+sc_hp_final_outfile <- paste(OUTPUT_PATH, "/", OUTPUT_PREFIX, "sc_hp.txt", sep="")
 
 # Get all mutations
-snvs <- read.table(ssm_file, header = T)
-# Extract read counts from single cells. This function will write the data to file.
-sc <- CombineSingleCellReads(SC_READS_PATH)
+snvs <- read.table(SNV_PATH, header = T)
+# Extract read counts from single cells.
+if (!file.exists(sc_raw_outfile)) {
+    sc <- CombineSingleCellReads(SC_READS_PATH)
+    write.table(sc, file = sc_raw_outfile, row.names = F, col.names = T, quote = F, sep= "\t" )
+} else {
+    sc <- read.table(sc_raw_outfile, sep="\t", header=T)
+}
+dim(sc)
+# Save the read counts.
 n_cells <- length(unique(sc$Cell))
 length(unique(sc$ID))
 length(snvs$ID)
 
-# Get the final SNV set: we will choose sites that have a variant in all three samples.
-ret <- laply(strsplit(as.character(snvs$b), ","), as.numeric)
-idx <- which(rowSums(ret > 0) == 2)
-head(snvs[idx,])
-snv_final <- snvs[idx,]
+# Ensure at least MIN_CELLS are found with variant.
+temp <- sc %>% group_by(ID) %>% dplyr::summarise(n_d = sum(d > 0), n_b = sum(d-a > 0))
+temp2 <- temp[temp$n_b >= MIN_CELLS,]
+dim(temp2)
+
+snv_final <- subset(snvs, ID %in% temp2$ID)
 dim(snv_final)
 write.table(snv_final, ssm_final_outfile, row.names = F, col.names = T, quote = F, sep= "\t")
 
 # Cell coverage by site?
-sc_final <- subset(sc, ID %in% snv_final$ID)
-temp <- sc_final %>% group_by(ID) %>% dplyr::summarise(n_d = sum(d > 0), n_b = sum(d-a > 0))
-temp2 <- temp[temp$n_b >= MIN_CELLS,]
-dim(temp2)
 summary(temp2$n_b/n_cells)
 temp2[which.max(temp2$n_b/n_cells),]
+idx <- which(temp2$n_b/temp2$n_d >= 0.9)
+mut_ids <- temp2[idx,]$ID
+head(snvs[snvs$ID %in% mut_ids,], 10)
+subset(sc, ID == id)
 temp2[(temp2$n_b > 0) & (temp2$n_d - temp2$n_b > 0),]
 
 # How many SNVs are covered on average by each cell?

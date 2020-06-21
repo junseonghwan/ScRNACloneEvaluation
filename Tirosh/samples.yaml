@@ -1,0 +1,7 @@
+samples:
+  tumor_sample_1:  /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam 
+  normal_sample_1:  /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam 
+
+
+pairings:
+  tumor_sample_1:  normal_sample_1

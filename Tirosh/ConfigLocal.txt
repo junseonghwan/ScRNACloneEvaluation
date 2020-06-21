@@ -1,0 +1,9 @@
+BULK /Users/seonghwanjun/data/melanoma/bulk-raw/CY78/78_Tumor.bam
+STRELKA_VCF /Users/seonghwanjun/data/melanoma/bulk-processed/CY78/results/variants/somatic.snvs.vcf
+TITAN_CNA /Users/seonghwanjun/data/melanoma/bulk-raw/CY78/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt
+GERMLINE_VCF /Users/seonghwanjun/data/melanoma/bulk-processed/CY78/78_Normal.germline.vcf.gz
+SC_BAM_PATH /Users/seonghwanjun/data/melanoma/scRNA-processed/CY78/Bowtie/
+SC_READS_PATH /Users/seonghwanjun/data/melanoma/scRNA-processed/CY78/Bowtie/Reads
+OUTPUT_PATH /Users/seonghwanjun/data/melanoma/phylo-analysis/CY78/
+MIN_DEPTH 20
+MIN_CELLS 1

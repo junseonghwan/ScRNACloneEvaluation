@@ -1,0 +1,8 @@
+STRELKA_VCF /proj/sc_ml/cellline/bulk/A90554A/results/variants/somatic.snvs.vcf.gz,/proj/sc_ml/cellline/bulk/A90554B/results/variants/somatic.snvs.vcf.gz,/proj/sc_ml/cellline/bulk/A96213A/results/variants/somatic.snvs.vcf.gz
+TITAN_CNA /proj/sc_ml/cellline/bulk/A90554A/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt,/proj/sc_ml/cellline/bulk/A90554B/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt,/proj/sc_ml/cellline/bulk/A96213A/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt
+GERMLINE_VCF /proj/sc_ml/cellline/bulk/Normal/DAH370N.germline.vcf.gz
+SC_BAM_PATH /proj/sc_ml/cellline/smartseq2/
+SC_READS_PATH /proj/sc_ml/cellline/smartseq2/Reads
+OUTPUT_PATH /proj/sc_ml/cellline/phylo/
+MIN_DEPTH 20
+MIN_CELLS 5

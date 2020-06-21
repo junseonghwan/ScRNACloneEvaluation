@@ -49,14 +49,6 @@ NumericVector GetChains(NumericVector parent_vector) {
     //Rcout << "node: " << nodes[i]->get_id() << ", parent: " << parent_idx << "\n";
   }
 
-  // for (size_t i = 0; i <= node_count; i++) {
-  //     Rcout << "node: " << nodes[i]->get_id() << ", children: [ ";
-  //     for (auto child : nodes[i]->get_children()) {
-  //         Rcout << child->get_id() << " ";
-  //     }
-  //     Rcout << "]\n";
-  // }
-
   size_t chain_id = 0;
   deque<Node *> queue;
   for (auto child : root->get_children()) {
