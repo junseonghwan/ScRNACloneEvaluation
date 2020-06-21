@@ -17,7 +17,7 @@ genomeBuild: hg19
 genomeStyle:  NCBI
 refFasta:  /proj/sc_ml/Tirosh/reference/Homo_sapiens_assembly19/v1/Homo_sapiens_assembly19.fasta
 snpVCF:  /proj/sc_ml/Tirosh/reference/GATK/hg19/hapmap_3.3.hg19.sites.ncbi.vcf.gz
-ichorCNA_exons: NULL
+ichorCNA_exons: /proj/sc_ml/Tirosh/reference/exons.bed
 cytobandFile:  None # only need if hg38
 centromere:  /home/x_seoju/ichorCNA/inst/extdata/GRCh37.p13_centromere_UCSC-gapTable.txt
 sex:  None   # use None if both females and males are in sample set

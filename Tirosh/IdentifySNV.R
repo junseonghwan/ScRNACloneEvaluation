@@ -35,25 +35,20 @@ if (n_samples != length(titan_cna_files)) {
     stop("Number of SNV files does not match the number of CNV files provided.")
 }
 
-ssm_outfile <- paste(output_path, "combined_ssm.txt", sep="/")
+ssm_outfile <- paste(output_path, "exon_ssm.txt", sep="/")
 
 # First, we will retrieve all SNVs that fall on exons (no filter is used).
-strelka_exon <- FilterSNVByExon(strelka_vcf_files[n], exon_file, chrs)
+strelka_exon <- FilterSNVByExon(strelka_vcf_files[1], exon_file, chrs)
+sum(strelka_exon$FILTER == "PASS") # SNVs on exon that pass the filter.
 n_snvs <- dim(strelka_exon)[1]
 print(paste("Total number of SNVS: ", n_snvs))
 # Generate SSM data for input.
 bulk <- GenerateSSMInput(strelka_exon, min_depth = MIN_DEPTH, phylo_wgs = FALSE)
 # Generate CNV data.
-# TODO: Run TitanCNA on Tirosh data and uncomment below.
-#cnv <- GenerateCNVInput(titan_cna_files[n], bulk)
+cnv <- GenerateCNVInput(titan_cna_files[1], bulk)
 # Combine cnv data into bulk
-#bulk$MajorCN <- cnv$MajorCN
-#bulk$MinorCN <- cnv$MinorCN
+bulk$MajorCN <- cnv$MajorCN
+bulk$MinorCN <- cnv$MinorCN
 # Write to file.
-#out_file <- paste(output_path, "/ssm", n, ".txt", sep="")
-#write.table(bulk, out_file, row.names = F, col.names = T, quote = F, sep= "\t")
-
-n_snvs <- dim(bulk)[1]
 bulk$ID <- paste("s", 1:n_snvs, sep="")
-
 write.table(bulk, ssm_outfile, row.names = F, col.names = T, quote = F, sep= "\t")
