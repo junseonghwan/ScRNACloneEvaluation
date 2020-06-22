@@ -2,7 +2,9 @@ args = commandArgs(trailingOnly=TRUE)
 print(args)
 data_path <- args[1]
 mcmc_iter <- as.numeric(args[2])
+seed <- as.numeric(args[3])
 print(mcmc_iter)
+print(seed)
 #data_path <- "/Users/seonghwanjun/data/simulation/binary/case4/sim0/rep0"
 
 library(ddclone)
@@ -44,7 +46,7 @@ ddCloneInputObj <- make.ddclone.input(bulkDat = bulkDat, genDat = genDat, output
 ddCloneRes <- ddclone(dataObj = ddCloneInputObj,
                       outputPath = output_path, tumourContent = 1.0,
                       numOfIterations = mcmc_iter, thinning = 10, burnIn = 0,
-                      seed = 1)
+                      seed = seed)
 
 # Output the results.
 df <- ddCloneRes$df

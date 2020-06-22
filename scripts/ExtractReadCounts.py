@@ -25,7 +25,7 @@ if not os.path.exists(output_path):
 samples = glob.glob(args.bam_path + "/*" + args.file_pattern_suffix)
 for sample in samples:
 	sample_name = os.path.basename(sample)
-	cell_name = sample_name.split(".")[0]
+	cell_name = sample_name.split(args.file_pattern_suffix)[0]
 	output_name = os.path.join(output_path, cell_name + ".reads.txt")
 	r_output_path = os.path.join(output_path, cell_name + ".Rout")
 	command = "sbatch ExtractReadCounts.sh " + args.somatic_loci + " " +  sample + " " + output_name + " " + r_output_path

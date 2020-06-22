@@ -1,0 +1,748 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 16
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	all
+	1	catAlleleCountFiles
+	4	combineTitanAndIchorCNA
+	1	copyOptSolution
+	23	getAlleleCountsByChr
+	23	getHETsites
+	1	ichorCNA
+	2	read_counter
+	4	runTitanCNA
+	1	selectSolution
+	61
+
+[Sun Jun 21 22:19:29 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr5.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr5.log
+    jobid: 42
+    wildcards: tumor=tumor_sample_1, chr=5
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr21.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr21.log
+    jobid: 58
+    wildcards: tumor=tumor_sample_1, chr=21
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr8.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr8.log
+    jobid: 45
+    wildcards: tumor=tumor_sample_1, chr=8
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr12.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr12.log
+    jobid: 49
+    wildcards: tumor=tumor_sample_1, chr=12
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr22.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr22.log
+    jobid: 59
+    wildcards: tumor=tumor_sample_1, chr=22
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrX.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrX.log
+    jobid: 60
+    wildcards: tumor=tumor_sample_1, chr=X
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr11.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr11.log
+    jobid: 48
+    wildcards: tumor=tumor_sample_1, chr=11
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr2.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr2.log
+    jobid: 39
+    wildcards: tumor=tumor_sample_1, chr=2
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr20.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr20.log
+    jobid: 57
+    wildcards: tumor=tumor_sample_1, chr=20
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr7.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr7.log
+    jobid: 44
+    wildcards: tumor=tumor_sample_1, chr=7
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr19.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr19.log
+    jobid: 56
+    wildcards: tumor=tumor_sample_1, chr=19
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr17.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr17.log
+    jobid: 54
+    wildcards: tumor=tumor_sample_1, chr=17
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr4.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr4.log
+    jobid: 41
+    wildcards: tumor=tumor_sample_1, chr=4
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr14.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr14.log
+    jobid: 51
+    wildcards: tumor=tumor_sample_1, chr=14
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr6.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr6.log
+    jobid: 43
+    wildcards: tumor=tumor_sample_1, chr=6
+
+
+[Sun Jun 21 22:19:30 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr3.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr3.log
+    jobid: 40
+    wildcards: tumor=tumor_sample_1, chr=3
+
+[Sun Jun 21 22:19:50 2020]
+Finished job 58.
+1 of 61 steps (2%) done
+
+[Sun Jun 21 22:19:50 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr9.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr9.log
+    jobid: 46
+    wildcards: tumor=tumor_sample_1, chr=9
+
+[Sun Jun 21 22:20:02 2020]
+Finished job 60.
+2 of 61 steps (3%) done
+
+[Sun Jun 21 22:20:02 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr16.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr16.log
+    jobid: 53
+    wildcards: tumor=tumor_sample_1, chr=16
+
+[Sun Jun 21 22:20:03 2020]
+Finished job 59.
+3 of 61 steps (5%) done
+
+[Sun Jun 21 22:20:03 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr13.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr13.log
+    jobid: 50
+    wildcards: tumor=tumor_sample_1, chr=13
+
+[Sun Jun 21 22:20:09 2020]
+Finished job 57.
+4 of 61 steps (7%) done
+
+[Sun Jun 21 22:20:09 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr1.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr1.log
+    jobid: 38
+    wildcards: tumor=tumor_sample_1, chr=1
+
+[Sun Jun 21 22:20:20 2020]
+Finished job 51.
+5 of 61 steps (8%) done
+
+[Sun Jun 21 22:20:20 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr18.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr18.log
+    jobid: 55
+    wildcards: tumor=tumor_sample_1, chr=18
+
+[Sun Jun 21 22:20:32 2020]
+Finished job 56.
+6 of 61 steps (10%) done
+
+[Sun Jun 21 22:20:32 2020]
+rule read_counter:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/readDepth/normal_sample_1.bin10000.wig
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/readDepth/normal_sample_1.bin10000.log
+    jobid: 37
+    wildcards: samples=normal_sample_1, binSize=10000
+    resources: mem=4
+
+[Sun Jun 21 22:20:32 2020]
+Finished job 45.
+7 of 61 steps (11%) done
+
+[Sun Jun 21 22:20:32 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr10.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr10.log
+    jobid: 47
+    wildcards: tumor=tumor_sample_1, chr=10
+
+[Sun Jun 21 22:20:38 2020]
+Finished job 41.
+8 of 61 steps (13%) done
+
+[Sun Jun 21 22:20:38 2020]
+rule getHETsites:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Normal.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr15.vcf
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr15.log
+    jobid: 52
+    wildcards: tumor=tumor_sample_1, chr=15
+
+[Sun Jun 21 22:20:39 2020]
+Finished job 54.
+9 of 61 steps (15%) done
+
+[Sun Jun 21 22:20:39 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr4.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr4.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr4.log
+    jobid: 16
+    wildcards: tumor=tumor_sample_1, chr=4
+
+[Sun Jun 21 22:20:39 2020]
+Finished job 50.
+10 of 61 steps (16%) done
+
+[Sun Jun 21 22:20:39 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr8.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr8.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr8.log
+    jobid: 20
+    wildcards: tumor=tumor_sample_1, chr=8
+
+[Sun Jun 21 22:20:46 2020]
+Finished job 44.
+11 of 61 steps (18%) done
+
+[Sun Jun 21 22:20:46 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr7.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr7.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr7.log
+    jobid: 19
+    wildcards: tumor=tumor_sample_1, chr=7
+
+[Sun Jun 21 22:20:47 2020]
+Finished job 42.
+12 of 61 steps (20%) done
+
+[Sun Jun 21 22:20:47 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr5.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr5.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr5.log
+    jobid: 17
+    wildcards: tumor=tumor_sample_1, chr=5
+
+[Sun Jun 21 22:20:47 2020]
+Finished job 49.
+13 of 61 steps (21%) done
+
+[Sun Jun 21 22:20:47 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr12.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr12.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr12.log
+    jobid: 24
+    wildcards: tumor=tumor_sample_1, chr=12
+
+[Sun Jun 21 22:20:51 2020]
+Finished job 48.
+14 of 61 steps (23%) done
+
+[Sun Jun 21 22:20:51 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr11.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr11.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr11.log
+    jobid: 23
+    wildcards: tumor=tumor_sample_1, chr=11
+
+[Sun Jun 21 22:20:52 2020]
+Finished job 55.
+15 of 61 steps (25%) done
+
+[Sun Jun 21 22:20:52 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr13.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr13.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr13.log
+    jobid: 25
+    wildcards: tumor=tumor_sample_1, chr=13
+
+[Sun Jun 21 22:20:54 2020]
+Finished job 46.
+16 of 61 steps (26%) done
+
+[Sun Jun 21 22:20:54 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr9.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr9.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr9.log
+    jobid: 21
+    wildcards: tumor=tumor_sample_1, chr=9
+
+[Sun Jun 21 22:20:56 2020]
+Finished job 43.
+17 of 61 steps (28%) done
+
+[Sun Jun 21 22:20:56 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr6.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr6.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr6.log
+    jobid: 18
+    wildcards: tumor=tumor_sample_1, chr=6
+
+[Sun Jun 21 22:20:57 2020]
+Finished job 40.
+18 of 61 steps (30%) done
+
+[Sun Jun 21 22:20:57 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr3.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr3.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr3.log
+    jobid: 15
+    wildcards: tumor=tumor_sample_1, chr=3
+
+[Sun Jun 21 22:21:04 2020]
+Finished job 53.
+19 of 61 steps (31%) done
+
+[Sun Jun 21 22:21:04 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr14.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr14.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr14.log
+    jobid: 26
+    wildcards: tumor=tumor_sample_1, chr=14
+
+[Sun Jun 21 22:21:13 2020]
+Finished job 25.
+20 of 61 steps (33%) done
+
+[Sun Jun 21 22:21:13 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr16.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr16.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr16.log
+    jobid: 28
+    wildcards: tumor=tumor_sample_1, chr=16
+
+[Sun Jun 21 22:21:14 2020]
+Finished job 20.
+21 of 61 steps (34%) done
+
+[Sun Jun 21 22:21:14 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr18.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr18.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr18.log
+    jobid: 30
+    wildcards: tumor=tumor_sample_1, chr=18
+
+[Sun Jun 21 22:21:18 2020]
+Finished job 16.
+22 of 61 steps (36%) done
+
+[Sun Jun 21 22:21:18 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr17.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr17.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr17.log
+    jobid: 29
+    wildcards: tumor=tumor_sample_1, chr=17
+
+[Sun Jun 21 22:21:21 2020]
+Finished job 39.
+23 of 61 steps (38%) done
+
+[Sun Jun 21 22:21:21 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr2.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr2.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr2.log
+    jobid: 14
+    wildcards: tumor=tumor_sample_1, chr=2
+
+[Sun Jun 21 22:21:29 2020]
+Finished job 52.
+24 of 61 steps (39%) done
+
+[Sun Jun 21 22:21:29 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr15.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr15.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr15.log
+    jobid: 27
+    wildcards: tumor=tumor_sample_1, chr=15
+
+[Sun Jun 21 22:21:30 2020]
+Finished job 17.
+25 of 61 steps (41%) done
+
+[Sun Jun 21 22:21:30 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr20.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr20.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr20.log
+    jobid: 32
+    wildcards: tumor=tumor_sample_1, chr=20
+
+[Sun Jun 21 22:21:30 2020]
+Finished job 30.
+26 of 61 steps (43%) done
+
+[Sun Jun 21 22:21:30 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr19.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr19.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr19.log
+    jobid: 31
+    wildcards: tumor=tumor_sample_1, chr=19
+
+[Sun Jun 21 22:21:33 2020]
+Finished job 21.
+27 of 61 steps (44%) done
+
+[Sun Jun 21 22:21:33 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr22.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr22.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr22.log
+    jobid: 34
+    wildcards: tumor=tumor_sample_1, chr=22
+
+[Sun Jun 21 22:21:33 2020]
+Finished job 26.
+28 of 61 steps (46%) done
+
+[Sun Jun 21 22:21:33 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chrX.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrX.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chrX.log
+    jobid: 35
+    wildcards: tumor=tumor_sample_1, chr=X
+
+[Sun Jun 21 22:21:34 2020]
+Finished job 35.
+29 of 61 steps (48%) done
+
+[Sun Jun 21 22:21:34 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr21.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr21.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr21.log
+    jobid: 33
+    wildcards: tumor=tumor_sample_1, chr=21
+
+[Sun Jun 21 22:21:35 2020]
+Finished job 19.
+30 of 61 steps (49%) done
+
+[Sun Jun 21 22:21:35 2020]
+rule read_counter:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/readDepth/tumor_sample_1.bin10000.wig
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/readDepth/tumor_sample_1.bin10000.log
+    jobid: 36
+    wildcards: samples=tumor_sample_1, binSize=10000
+    resources: mem=4
+
+[Sun Jun 21 22:21:35 2020]
+Finished job 24.
+31 of 61 steps (51%) done
+[Sun Jun 21 22:21:42 2020]
+Finished job 47.
+32 of 61 steps (52%) done
+
+[Sun Jun 21 22:21:42 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr10.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr10.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr10.log
+    jobid: 22
+    wildcards: tumor=tumor_sample_1, chr=10
+
+[Sun Jun 21 22:21:45 2020]
+Finished job 33.
+33 of 61 steps (54%) done
+[Sun Jun 21 22:21:45 2020]
+Finished job 15.
+34 of 61 steps (56%) done
+[Sun Jun 21 22:21:48 2020]
+Finished job 23.
+35 of 61 steps (57%) done
+[Sun Jun 21 22:21:50 2020]
+Finished job 28.
+36 of 61 steps (59%) done
+[Sun Jun 21 22:21:51 2020]
+Finished job 32.
+37 of 61 steps (61%) done
+[Sun Jun 21 22:21:56 2020]
+Finished job 18.
+38 of 61 steps (62%) done
+[Sun Jun 21 22:21:57 2020]
+Finished job 27.
+39 of 61 steps (64%) done
+[Sun Jun 21 22:21:57 2020]
+Finished job 34.
+40 of 61 steps (66%) done
+[Sun Jun 21 22:22:03 2020]
+Finished job 29.
+41 of 61 steps (67%) done
+[Sun Jun 21 22:22:06 2020]
+Finished job 38.
+42 of 61 steps (69%) done
+
+[Sun Jun 21 22:22:06 2020]
+rule getAlleleCountsByChr:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hetPosns/tumor_sample_1/tumor_sample_1.chr1.vcf, /proj/sc_ml/Tirosh/bulk-wes/CY79/79_Tumor.bam
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr1.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.chr1.log
+    jobid: 13
+    wildcards: tumor=tumor_sample_1, chr=1
+
+[Sun Jun 21 22:22:18 2020]
+Finished job 22.
+43 of 61 steps (70%) done
+[Sun Jun 21 22:22:19 2020]
+Finished job 31.
+44 of 61 steps (72%) done
+[Sun Jun 21 22:22:22 2020]
+Finished job 14.
+45 of 61 steps (74%) done
+[Sun Jun 21 22:23:07 2020]
+Finished job 13.
+46 of 61 steps (75%) done
+
+[Sun Jun 21 22:23:07 2020]
+rule catAlleleCountFiles:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr1.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr2.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr3.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr4.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr5.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr6.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr7.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr8.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr9.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr10.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr11.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr12.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr13.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr14.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr15.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr16.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr17.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr18.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr19.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr20.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr21.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chr22.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1/tumor_sample_1.tumCounts.chrX.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1.tumCounts.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/tumCounts/tumor_sample_1/tumor_sample_1.cat.log
+    jobid: 11
+    wildcards: tumor=tumor_sample_1
+
+[Sun Jun 21 22:23:07 2020]
+Finished job 11.
+47 of 61 steps (77%) done
+[Sun Jun 21 22:26:12 2020]
+Finished job 37.
+48 of 61 steps (79%) done
+[Sun Jun 21 22:26:36 2020]
+Finished job 36.
+49 of 61 steps (80%) done
+
+[Sun Jun 21 22:26:36 2020]
+rule ichorCNA:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/readDepth/tumor_sample_1.bin10000.wig, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/readDepth/normal_sample_1.bin10000.wig
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/ichorCNA/tumor_sample_1.log
+    jobid: 12
+    wildcards: tumor=tumor_sample_1
+    resources: mem=4
+
+[Sun Jun 21 23:19:09 2020]
+Finished job 12.
+50 of 61 steps (82%) done
+
+[Sun Jun 21 23:19:09 2020]
+rule runTitanCNA:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1.tumCounts.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.params.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.segs.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.seg
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.log
+    jobid: 4
+    wildcards: ploidy=3, tumor=tumor_sample_1, clustNum=2
+
+
+[Sun Jun 21 23:19:10 2020]
+rule runTitanCNA:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1.tumCounts.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.params.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.seg
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.log
+    jobid: 1
+    wildcards: ploidy=2, tumor=tumor_sample_1, clustNum=1
+
+
+[Sun Jun 21 23:19:10 2020]
+rule runTitanCNA:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1.tumCounts.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.params.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.segs.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.seg
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.log
+    jobid: 3
+    wildcards: ploidy=2, tumor=tumor_sample_1, clustNum=2
+
+
+[Sun Jun 21 23:19:10 2020]
+rule runTitanCNA:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/tumCounts/tumor_sample_1.tumCounts.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.correctedDepth.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.params.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.segs.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.seg
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.log
+    jobid: 2
+    wildcards: ploidy=3, tumor=tumor_sample_1, clustNum=1
+
+[Sun Jun 21 23:19:49 2020]
+Finished job 1.
+51 of 61 steps (84%) done
+
+[Sun Jun 21 23:19:49 2020]
+rule combineTitanAndIchorCNA:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.params.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.cna.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.combineTitanIchorCNA.log
+    jobid: 5
+    wildcards: ploidy=2, tumor=tumor_sample_1, clustNum=1
+
+[Sun Jun 21 23:19:54 2020]
+Finished job 2.
+52 of 61 steps (85%) done
+
+[Sun Jun 21 23:19:54 2020]
+rule combineTitanAndIchorCNA:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.segs.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.params.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.cna.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.combineTitanIchorCNA.log
+    jobid: 6
+    wildcards: ploidy=3, tumor=tumor_sample_1, clustNum=1
+
+[Sun Jun 21 23:19:58 2020]
+Finished job 3.
+53 of 61 steps (87%) done
+
+[Sun Jun 21 23:19:58 2020]
+rule combineTitanAndIchorCNA:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.segs.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.params.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.cna.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.combineTitanIchorCNA.log
+    jobid: 7
+    wildcards: ploidy=2, tumor=tumor_sample_1, clustNum=2
+
+[Sun Jun 21 23:20:01 2020]
+Finished job 4.
+54 of 61 steps (89%) done
+
+[Sun Jun 21 23:20:01 2020]
+rule combineTitanAndIchorCNA:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.segs.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.params.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.cna.seg, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/ichorCNA/tumor_sample_1/tumor_sample_1.params.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.cna.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.combineTitanIchorCNA.log
+    jobid: 8
+    wildcards: ploidy=3, tumor=tumor_sample_1, clustNum=2
+
+
+[Sun Jun 21 23:20:01 2020]
+rule selectSolution:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/optimalClusterSolution.txt
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/selectSolution.log
+    jobid: 9
+
+[Sun Jun 21 23:20:01 2020]
+Finished job 5.
+55 of 61 steps (90%) done
+[Sun Jun 21 23:20:02 2020]
+Finished job 9.
+56 of 61 steps (92%) done
+
+[Sun Jun 21 23:20:02 2020]
+rule copyOptSolution:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/optimalClusterSolution.txt
+    output: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/optimalClusterSolution/
+    log: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/logs/titan/hmm/optSolution/copyOptSolution.log
+    jobid: 10
+
+[Sun Jun 21 23:20:02 2020]
+Finished job 10.
+57 of 61 steps (93%) done
+[Sun Jun 21 23:20:07 2020]
+Finished job 6.
+58 of 61 steps (95%) done
+[Sun Jun 21 23:20:10 2020]
+Finished job 7.
+59 of 61 steps (97%) done
+[Sun Jun 21 23:20:15 2020]
+Finished job 8.
+60 of 61 steps (98%) done
+
+[Sun Jun 21 23:20:15 2020]
+localrule all:
+    input: /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.seg.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.titan.ichor.cna.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster1.titan.ichor.cna.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster2.titan.ichor.cna.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/titanCNA_ploidy3/tumor_sample_1_cluster2.titan.ichor.cna.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/optimalClusterSolution.txt, /proj/sc_ml/Tirosh/bulk-wes/CY79/cna/results/titan/hmm/optimalClusterSolution/
+    jobid: 0
+
+[Sun Jun 21 23:20:15 2020]
+Finished job 0.
+61 of 61 steps (100%) done
+Complete log: /home/x_seoju/ScRNACloneEvaluation/scripts/.snakemake/log/2020-06-21T221928.858965.snakemake.log

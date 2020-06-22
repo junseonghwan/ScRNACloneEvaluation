@@ -28,11 +28,13 @@ for sim_no in range(SIM_BEGIN, SIM_END):
 	SIMUL_PATH = CASE_PATH + "/sim" + str(sim_no)
 	for rep_no in range(REP_BEGIN, REP_END):
 		REP_PATH = SIMUL_PATH + "/rep" + str(rep_no) + "/"
+		rep_seed = np.random.randint(100000000)
 
 		# Run Rscript to generate input for B-SCITE.
 		run_command = "sbatch "
 		run_command += PATH_TO_EXECUTABLE + " "
 		run_command += REP_PATH + " "
-		run_command += str(args.mcmc)
+		run_command += str(args.mcmc) + " "
+		run_command += str(rep_seed)
 		os.system(run_command)
 		#print(run_command)
