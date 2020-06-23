@@ -1,6 +1,6 @@
 samples:
-  tumor_sample_1:  /proj/sc_ml/cellline/bulk/A90554A/A90554A.sorted.bam 
-  normal_sample_1:  /proj/sc_ml/cellline/bulk/A90554A/DAH370N.bam
+  tumor_sample_1:  /proj/sc_ml/cellline/bulk/Combined/combined.sorted.bam
+  normal_sample_1:  /proj/sc_ml/cellline/bulk/Combined/DAH370N.bam
 
 
 pairings:

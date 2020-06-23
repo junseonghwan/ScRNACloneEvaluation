@@ -3,17 +3,17 @@ configfile: "/home/x_seoju/ScRNACloneEvaluation/Tirosh/samples.yaml"
 
 rule correctDepth:
 	input:
-		expand("/proj/sc_ml/cellline/bulk/A90554A/cna/results/ichorCNA/{tumor}/{tumor}.cna.seg", tumor=config["pairings"]),
-		expand("/proj/sc_ml/cellline/bulk/A90554A/cna/results/ichorCNA/{tumor}/{tumor}.seg.txt", tumor=config["pairings"]),
-		expand("/proj/sc_ml/cellline/bulk/A90554A/cna/results/ichorCNA/{tumor}/{tumor}.params.txt", tumor=config["pairings"]),
-		expand("/proj/sc_ml/cellline/bulk/A90554A/cna/results/ichorCNA/{tumor}/{tumor}.correctedDepth.txt", tumor=config["pairings"]),
-		expand("/proj/sc_ml/cellline/bulk/A90554A/cna/results/readDepth/{samples}.bin{binSize}.wig", samples=config["samples"], binSize=str(config["binSize"]))
+		expand("/proj/sc_ml/cellline/bulk/Combined/cna/results/ichorCNA/{tumor}/{tumor}.cna.seg", tumor=config["pairings"]),
+		expand("/proj/sc_ml/cellline/bulk/Combined/cna/results/ichorCNA/{tumor}/{tumor}.seg.txt", tumor=config["pairings"]),
+		expand("/proj/sc_ml/cellline/bulk/Combined/cna/results/ichorCNA/{tumor}/{tumor}.params.txt", tumor=config["pairings"]),
+		expand("/proj/sc_ml/cellline/bulk/Combined/cna/results/ichorCNA/{tumor}/{tumor}.correctedDepth.txt", tumor=config["pairings"]),
+		expand("/proj/sc_ml/cellline/bulk/Combined/cna/results/readDepth/{samples}.bin{binSize}.wig", samples=config["samples"], binSize=str(config["binSize"]))
 
 rule read_counter:
 	input:
 		lambda wildcards: config["samples"][wildcards.samples]
 	output:
-		"/proj/sc_ml/cellline/bulk/A90554A/cna/results/readDepth/{samples}.bin{binSize}.wig"
+		"/proj/sc_ml/cellline/bulk/Combined/cna/results/readDepth/{samples}.bin{binSize}.wig"
 	params:
 		readCounter=config["readCounterScript"],
 		binSize=config["binSize"],
@@ -22,23 +22,23 @@ rule read_counter:
 	resources:
 		mem=4
 	log:
-		"/proj/sc_ml/cellline/bulk/A90554A/cna/logs/readDepth/{samples}.bin{binSize}.log"
+		"/proj/sc_ml/cellline/bulk/Combined/cna/logs/readDepth/{samples}.bin{binSize}.log"
 	shell:
 		"{params.readCounter} {input} -c {params.chrs} -w {params.binSize} -q {params.qual} > {output} 2> {log}"
 
 rule ichorCNA:
 	input:
-		tum="/proj/sc_ml/cellline/bulk/A90554A/cna/results/readDepth/{tumor}.bin" + str(config["binSize"]) + ".wig",
-		norm=lambda wildcards: "/proj/sc_ml/cellline/bulk/A90554A/cna/results/readDepth/" + config["pairings"][wildcards.tumor] + ".bin" + str(config["binSize"]) + ".wig"
+		tum="/proj/sc_ml/cellline/bulk/Combined/cna/results/readDepth/{tumor}.bin" + str(config["binSize"]) + ".wig",
+		norm=lambda wildcards: "/proj/sc_ml/cellline/bulk/Combined/cna/results/readDepth/" + config["pairings"][wildcards.tumor] + ".bin" + str(config["binSize"]) + ".wig"
 	output:
-		corrDepth="/proj/sc_ml/cellline/bulk/A90554A/cna/results/ichorCNA/{tumor}/{tumor}.correctedDepth.txt",
-		param="/proj/sc_ml/cellline/bulk/A90554A/cna/results/ichorCNA/{tumor}/{tumor}.params.txt",
-		cna="/proj/sc_ml/cellline/bulk/A90554A/cna/results/ichorCNA/{tumor}/{tumor}.cna.seg",
-		segTxt="/proj/sc_ml/cellline/bulk/A90554A/cna/results/ichorCNA/{tumor}/{tumor}.seg.txt",
+		corrDepth="/proj/sc_ml/cellline/bulk/Combined/cna/results/ichorCNA/{tumor}/{tumor}.correctedDepth.txt",
+		param="/proj/sc_ml/cellline/bulk/Combined/cna/results/ichorCNA/{tumor}/{tumor}.params.txt",
+		cna="/proj/sc_ml/cellline/bulk/Combined/cna/results/ichorCNA/{tumor}/{tumor}.cna.seg",
+		segTxt="/proj/sc_ml/cellline/bulk/Combined/cna/results/ichorCNA/{tumor}/{tumor}.seg.txt",
 		#seg="results/ichorCNA/{tumor}/{tumor}.seg",
 		#rdata="results/ichorCNA/{tumor}/{tumor}.RData",
 	params:
-		outDir="/proj/sc_ml/cellline/bulk/A90554A/cna/results/ichorCNA/{tumor}/",
+		outDir="/proj/sc_ml/cellline/bulk/Combined/cna/results/ichorCNA/{tumor}/",
 		rscript=config["ichorCNA_rscript"],
 		libdir=config["ichorCNA_libdir"],
 		id="{tumor}",
@@ -65,6 +65,6 @@ rule ichorCNA:
 	resources:
 		mem=4
 	log:
-		"/proj/sc_ml/cellline/bulk/A90554A/cna/logs/ichorCNA/{tumor}.log"	
+		"/proj/sc_ml/cellline/bulk/Combined/cna/logs/ichorCNA/{tumor}.log"
 	shell:
 		"Rscript {params.rscript} --libdir {params.libdir} --id {params.id} --WIG {input.tum} --gcWig {params.gcwig} --mapWig {params.mapwig} --NORMWIG {input.norm} --ploidy \"{params.ploidy}\" --normal \"{params.normal}\" --maxCN {params.maxCN} --includeHOMD {params.includeHOMD} --genomeStyle {params.genomeStyle} --chrs \"{params.chrs}\" --estimateNormal {params.estimateNormal} --estimatePloidy {params.estimatePloidy} --estimateScPrevalence {params.estimateClonality} --scStates \"{params.scStates}\" --centromere {params.centromere} --exons.bed {params.exons} --txnE {params.txnE} --txnStrength {params.txnStrength} --fracReadsInChrYForMale {params.fracReadsChrYMale} --plotFileType {params.plotFileType} --plotYLim \"{params.plotYlim}\" --outDir {params.outDir} > {log} 2> {log}"

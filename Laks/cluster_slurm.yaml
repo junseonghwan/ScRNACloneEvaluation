@@ -1,8 +1,7 @@
 __default__:
-    mem:    4G
+    mem:    32G
     time:   "1:0:0"
-    ncpus:  1
-    ntasks: 1
+    ncpus:  16
     output: logs/cluster/{rule}.%A.out
 
 read_counter:

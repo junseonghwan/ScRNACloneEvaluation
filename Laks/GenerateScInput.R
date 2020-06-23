@@ -10,6 +10,7 @@ if (length(args) != 1) {
 
 library(dplyr)
 library(matrixStats)
+library(plyr)
 library(ScRNAClone)
 library(TailRank)
 
@@ -20,14 +21,15 @@ config <- read.table(config_file, header=F, as.is = TRUE)
 print(config)
 keys <- as.character(config$V1)
 values <- as.character(config$V2)
-ssm_file <- values[keys == "SNV"]
+ssm_file <- values[keys == "SNV_PATH"]
 OUTPUT_PATH <- values[keys == "OUTPUT_PATH"]
+OUTPUT_PREFIX <- values[keys == "OUTPUT_PREFIX"]
 SC_READS_PATH <- values[keys == "SC_READS_PATH"]
 MIN_CELLS <- as.numeric(values[keys == "MIN_CELLS"])
 
-ssm_final_outfile <- paste(OUTPUT_PATH, "final_ssm.txt", sep="/")
-sc_final_outfile <- paste(OUTPUT_PATH, "final_sc.txt", sep="/")
-sc_hp_final_outfile <- paste(OUTPUT_PATH, "final_sc_hp.txt", sep="/")
+ssm_final_outfile <- paste(OUTPUT_PATH, "/", OUTPUT_PREFIX, "ssm.txt", sep="")
+sc_final_outfile <- paste(OUTPUT_PATH, "/", OUTPUT_PREFIX, "sc.txt", sep="")
+sc_hp_final_outfile <- paste(OUTPUT_PATH, "/", OUTPUT_PREFIX, "sc_hp.txt", sep="")
 
 # Get all mutations
 snvs <- read.table(ssm_file, header = T)
@@ -37,22 +39,34 @@ n_cells <- length(unique(sc$Cell))
 length(unique(sc$ID))
 length(snvs$ID)
 
-# Get the final SNV set: we will choose sites that have a variant in all three samples.
-ret <- laply(strsplit(as.character(snvs$b), ","), as.numeric)
-idx <- which(rowSums(ret > 0) == 2)
-head(snvs[idx,])
-snv_final <- snvs[idx,]
-dim(snv_final)
-write.table(snv_final, ssm_final_outfile, row.names = F, col.names = T, quote = F, sep= "\t")
-
 # Cell coverage by site?
-sc_final <- subset(sc, ID %in% snv_final$ID)
-temp <- sc_final %>% group_by(ID) %>% dplyr::summarise(n_d = sum(d > 0), n_b = sum(d-a > 0))
+#sc_final <- subset(sc, ID %in% snv_final$ID)
+temp <- sc %>% group_by(ID) %>% dplyr::summarise(n_d = sum(d > 0), n_b = sum(d-a > 0))
 temp2 <- temp[temp$n_b >= MIN_CELLS,]
 dim(temp2)
 summary(temp2$n_b/n_cells)
 temp2[which.max(temp2$n_b/n_cells),]
 temp2[(temp2$n_b > 0) & (temp2$n_d - temp2$n_b > 0),]
+temp2$ID
+
+# Get the final SNV set.
+snv_final <- subset(snvs, ID %in% temp2$ID)
+
+# Because our data is written in a multi-region format, we will have to unwind and merge it into one.
+ret <- laply(strsplit(as.character(snv_final$b), ","), as.numeric)
+snv_final$b <- rowSums(ret)
+ret <- laply(strsplit(as.character(snv_final$d), ","), as.numeric)
+snv_final$d <- rowSums(ret)
+
+sum(rowSums(ret > 0) == 1) # 25 region specific mutations.
+sum(rowSums(ret > 1) == 1) # Make that 30 region specific mutations. Variant read of 1 is likely due to sequencing error.
+snv_final[which(rowSums(ret > 1) == 1),] # These are the sites.
+snv_final[which(rowSums(ret > 1) == 2),] # These are the mutations on two samples.
+snv_final[which(rowSums(ret > 1) == 3),] # These are the mutations on all three samples.
+
+
+
+write.table(snv_final, ssm_final_outfile, row.names = F, col.names = T, quote = F, sep= "\t")
 
 # How many SNVs are covered on average by each cell?
 temp <- subset(sc, ID %in% temp2$ID) %>% group_by(Cell) %>% summarise(n_d = sum(d > 0), n_b = sum(d - a > 0))
