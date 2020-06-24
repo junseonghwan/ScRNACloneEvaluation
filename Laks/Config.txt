@@ -1,9 +1,9 @@
-SNV /proj/sc_ml/cellline/phylo/ov2295_clone_snvs_exon.csv
-BULK /proj/sc_ml/cellline/bulk/A90554A/A90554A.sorted.bam,/proj/sc_ml/cellline/bulk/A90554B/A90554B.sorted.bam,/proj/sc_ml/cellline/bulk/A96213A/A96213A.sorted.bam
-TITAN_CNA /proj/sc_ml/cellline/bulk/A90554A/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt,/proj/sc_ml/cellline/bulk/A90554B/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt,/proj/sc_ml/cellline/bulk/A96213A/cna/results/titan/hmm/titanCNA_ploidy2/tumor_sample_1_cluster1.segs.txt
+SNV_PATH /proj/sc_ml/cellline/phylo/ov2295_clone_snvs_exon.csv
+BULK /proj/sc_ml/cellline/bulk/Combined/combined.sorted.bam
+TITAN_CNA /proj/sc_ml/cellline/bulk/Combined/cna/results/titan/hmm/optimalClusterSolution/tumor_sample_1_cluster2.segs.txt
 GERMLINE_VCF /proj/sc_ml/cellline/bulk/Normal/DAH370N.germline.vcf.gz
-SC_BAM_PATH /proj/sc_ml/cellline/smartseq2/
-SC_READS_PATH /proj/sc_ml/cellline/smartseq2/Reads
+SC_BAM_PATH /proj/sc_ml/cellline/smart-seq3/
+SC_READS_PATH /proj/sc_ml/cellline/smart-seq3/Reads
 OUTPUT_PATH /proj/sc_ml/cellline/phylo/
 MIN_DEPTH 20
-MIN_CELLS 5
+MIN_CELLS 1

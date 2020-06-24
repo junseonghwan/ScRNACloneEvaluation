@@ -20,7 +20,7 @@ rule read_counter:
 		qual="20",
 		chrs=config["chrs"]
 	resources:
-		mem=4
+		mem=16
 	log:
 		"/proj/sc_ml/cellline/bulk/Combined/cna/logs/readDepth/{samples}.bin{binSize}.log"
 	shell:
@@ -63,7 +63,7 @@ rule ichorCNA:
 		plotFileType=config["ichorCNA_plotFileType"],
 		plotYlim=config["ichorCNA_plotYlim"]
 	resources:
-		mem=4
+		mem=16
 	log:
 		"/proj/sc_ml/cellline/bulk/Combined/cna/logs/ichorCNA/{tumor}.log"
 	shell:

@@ -51,29 +51,27 @@ temp2$ID
 
 # Get the final SNV set.
 snv_final <- subset(snvs, ID %in% temp2$ID)
+head(snv_final)
 
 # Because our data is written in a multi-region format, we will have to unwind and merge it into one.
 ret <- laply(strsplit(as.character(snv_final$b), ","), as.numeric)
 snv_final$b <- rowSums(ret)
 ret <- laply(strsplit(as.character(snv_final$d), ","), as.numeric)
 snv_final$d <- rowSums(ret)
+ret <- laply(strsplit(as.character(snv_final$MajorCN), ","), as.numeric)
+snv_final$MajorCN <- round(rowMeans(ret))
+ret <- laply(strsplit(as.character(snv_final$MinorCN), ","), as.numeric)
+snv_final$MinorCN <- round(rowMeans(ret))
+head(snv_final)
+
+loc_col_idx <- which(names(snv_final) == "loc")
+write.table(snv_final[,-loc_col_idx], ssm_final_outfile, row.names = F, col.names = T, quote = F, sep= "\t")
 
 sum(rowSums(ret > 0) == 1) # 25 region specific mutations.
 sum(rowSums(ret > 1) == 1) # Make that 30 region specific mutations. Variant read of 1 is likely due to sequencing error.
 snv_final[which(rowSums(ret > 1) == 1),] # These are the sites.
 snv_final[which(rowSums(ret > 1) == 2),] # These are the mutations on two samples.
 snv_final[which(rowSums(ret > 1) == 3),] # These are the mutations on all three samples.
-
-
-
-write.table(snv_final, ssm_final_outfile, row.names = F, col.names = T, quote = F, sep= "\t")
-
-# How many SNVs are covered on average by each cell?
-temp <- subset(sc, ID %in% temp2$ID) %>% group_by(Cell) %>% summarise(n_d = sum(d > 0), n_b = sum(d - a > 0))
-n_snvs <- dim(snv_final)[1]
-summary(temp$n_d/n_snvs)
-summary(temp$n_b/n_snvs)
-temp[which.max(temp$n_b/n_snvs),]
 
 # Take a subset of the sc data for the final SNVs.
 sc_final <- subset(sc, ID %in% snv_final$ID)
@@ -92,3 +90,25 @@ for (i in 1:n_snvs) {
     }
 }
 write.table(hyper_params.df, sc_hp_final_outfile, row.names = F, col.names = T, quote = F, sep="\t")
+
+#sc_final %>% group_by(ID) %>% summarise(n_b = sum(b >= 1))
+temp <- subset(sc_final, ID == "s11")
+temp[(temp$b > 0),]
+
+cell <- subset(sc_final, Cell == "c254")
+cell[which(cell$b > 0),]
+
+cell_clone_membership <- read.table("/Users/seonghwanjun/data/cell-line/phylo/ov2295_clone_clusters.csv", sep=",", header=T)
+
+clone_ids <- sort(unique(cell_clone_membership$clone_id))
+cell_prev <- rep(0, length(clone_ids))
+for (i in 1:length(clone_ids)) {
+    clone_id <- clone_ids[i]
+    cell_prev[i] <- mean(cell_clone_membership$clone_id == clone_id)
+}
+
+library(sabre)
+predicted <- read.table("/Users/seonghwanjun/data/cell-line/phylo/joint/tree0/cluster_labels.txt", header=F, sep=",")
+truth <- read.table("/Users/seonghwanjun/data/cell-line/phylo/ov2295_exon_ground_truth_curated.txt", header=T)
+vmeasure(truth$clone_name, predicted$V2, B = 1)
+cbind(truth$clone_name, predicted$V2)
