@@ -3,7 +3,7 @@ EXON_SNV_PATH /proj/sc_ml/cellline/phylo/ov2295_clone_snvs_exon.csv
 BULK /proj/sc_ml/cellline/bulk/Combined/combined.sorted.bam
 TITAN_CNA /proj/sc_ml/cellline/bulk/Combined/cna/results/titan/hmm/optimalClusterSolution/tumor_sample_1_cluster2.segs.txt
 GERMLINE_VCF /proj/sc_ml/cellline/bulk/Normal/DAH370N.germline.vcf.gz
-SC_BAM_PATH /proj/sc_ml/cellline/smart-seq3/
+SC_BAM_PATH /proj/sc_ml/cellline/smart-seq3/myStarAlign/
 SC_READS_PATH /proj/sc_ml/cellline/smart-seq3/myStarAlign/Reads
 OUTPUT_PATH /proj/sc_ml/cellline/Combined/
 MIN_DEPTH 5
