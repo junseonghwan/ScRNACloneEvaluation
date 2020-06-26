@@ -1,0 +1,8 @@
+VCF_PATH /Users/seonghwanjun/data/cell-line/bulk/Combined/results/variants/somatic.snvs.vcf.gz
+LAKS_SNV_PATH /Users/seonghwanjun/data/cell-line/phylo/ov2295_clone_snvs.csv
+TITAN_CNA /Users/seonghwanjun/data/cell-line/bulk/Combined/cna/results/titan/hmm/optimalClusterSolution/tumor_sample_1_cluster2.segs.txt
+SC_BAM_PATH /Users/seonghwanjun/data/cell-line/smart-seq3/myStarAlign/
+SC_READS_PATH /Users/seonghwanjun/data/cell-line/smart-seq3/myStarAlign/Reads
+OUTPUT_PATH /Users/seonghwanjun/data/cell-line/bulk/Combined/
+MIN_CELLS 1
+PHYLOWGS_SNV_PATH /Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/ssm_data.txt

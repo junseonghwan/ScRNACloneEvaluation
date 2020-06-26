@@ -53,6 +53,7 @@ dim(snvs.exon)
 head(snvs.exon)
 snvs.exon$ID <- paste("s", 1:dim(snvs.exon)[1], sep="")
 
+# TODO: Provide feature for specifying min_base_quality, min_mapq, and min_depth in Config.txt.
 # Get read counts from the BAM files.
 somatic.gr <- ConstructGranges(snvs.exon$chrom, snvs.exon$coord, width = 0)
 sbp <- ScanBamParam(which = somatic.gr)
