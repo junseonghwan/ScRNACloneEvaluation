@@ -4,7 +4,8 @@
 
 ## Generating data for comparison to other bulk + single cell methods
 + `GenerateBulkInput.R`:
-    * Identifies exonic SNVs from `ov2295_clone_snvs.csv` (Laks et al).
+    * Specify config file in `Laks/Config.txt`.
+    * Identifies exonic SNVs from `ov2295_clone_snvs.csv`.
     * Retrieves reads from the bulk data at the identified sites.
     * Retrieves major and minor copy numbers from TitanCNA.
     * Outputs file `ov2295_clone_snvs_exon.cvs`.
@@ -21,7 +22,7 @@
     * Optionally, it also generates: `ssm_trimmed.txt`, `sc_trimmed.txt`, and `sc_hp_trimmed.txt`.
         - These files are the trimmed version of the above based on MIN_CELLS parameter in `Config.txt`. Any exonic SNV that does not have at least MIN_CELLS with variant reads at the site are discarded.
 
-## How to process the data for PhyloWGS
+## Comparison to PhyloWGS
 
 - Requires `py27`.
 
@@ -45,10 +46,10 @@ python index_data.py
 python -m SimpleHTTPServer
 ```
 
-## How to process the data for our method
+# How to process the data for our method
 + Run `PrepareInput.R`.
     * This file will generate the data based on what was generated for PhyloWGS.
 
 # Evaluate the results
-- To evaluate PhyloWGS results, first, unzip the trees.
+- To evaluate PhyloWGS results, first, unzip the trees in `witness/data/cell-line`.
 - Run `Evaluation.R`.

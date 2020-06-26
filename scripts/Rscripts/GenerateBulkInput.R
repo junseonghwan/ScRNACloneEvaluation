@@ -1,4 +1,10 @@
 args = commandArgs(trailingOnly=TRUE)
+
+if (length(args) != 1) {
+    print("Provide a config file delimeted by tab or space.")
+    stop("Terminating...")
+}
+
 print(args)
 
 library(dplyr)

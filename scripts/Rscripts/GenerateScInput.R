@@ -1,12 +1,11 @@
 args = commandArgs(trailingOnly=TRUE)
-print(args)
 
 if (length(args) != 1) {
-    print("Provide a config file delimeted by tab or space with following fields.")
-    print("OUTPUT_PATH: Path containing bulk data for each of the four workflows.")
-    print("sc_reads_path: Path to processed single cell reads.")
+    print("Provide a config file delimeted by tab or space.")
     stop("Terminating...")
 }
+
+print(args)
 
 library(dplyr)
 library(matrixStats)
@@ -26,8 +25,13 @@ OUTPUT_PATH <- values[keys == "OUTPUT_PATH"]
 SC_READS_PATH <- values[keys == "SC_READS_PATH"]
 MIN_CELLS <- as.numeric(values[keys == "MIN_CELLS"])
 
-sc_final_outfile <- paste(OUTPUT_PATH, "sc.txt", sep="/")
-sc_hp_final_outfile <- paste(OUTPUT_PATH, "sc_hp.txt", sep="/")
+ssm_outfile <- paste(OUTPUT_PATH, "ssm.txt", sep="/")
+sc_outfile <- paste(OUTPUT_PATH, "sc.txt", sep="/")
+sc_hp_outfile <- paste(OUTPUT_PATH, "sc_hp.txt", sep="/")
+
+ssm_trimmed_outfile <- paste(OUTPUT_PATH, "trimmed_ssm.txt", sep="/")
+sc_trimmed_outfile <- paste(OUTPUT_PATH, "trimmed_sc.txt", sep="/")
+sc_hp_trimmed_outfile <- paste(OUTPUT_PATH, "trimmed_sc_hp.txt", sep="/")
 
 # Get all mutations
 snv <- read.table(EXON_SNV_PATH, header = T)
@@ -36,21 +40,9 @@ sc <- CombineSingleCellReads(SC_READS_PATH)
 n_cells <- length(unique(sc$Cell))
 n_cells
 length(unique(sc$ID))
-length(snvs$ID)
-dim(sc)
+length(snv$ID)
 
-sc <- subset(sc, ID %in% snvs$ID)
-sc$ID <- factor(sc$ID, snvs$ID)
-
-# Cell coverage by site?
-#sc_final <- subset(sc, ID %in% snv_final$ID)
-temp <- sc %>% group_by(ID) %>% dplyr::summarise(n_d = sum(d > 0), n_b = sum(d-a > 0))
-temp2 <- temp[temp$n_b >= MIN_CELLS,]
-dim(temp2)
-summary(temp2$n_b/n_cells)
-temp2[which.max(temp2$n_b/n_cells),]
-temp2[(temp2$n_b > 0) & (temp2$n_d - temp2$n_b > 0),]
-temp2
+sc$ID <- factor(sc$ID, levels = snv$ID)
 
 # Now, we estimate the hyperparameters for the single cell reads.
 n_snvs <- dim(snv)[1]
@@ -58,7 +50,7 @@ hyper_params.df <- data.frame(ID = snv$ID, alpha = rep(1, n_snvs), beta = rep(1,
 sc$b <- sc$d - sc$a
 temp <- subset(sc, d > 0)
 for (i in 1:n_snvs) {
-    id <- snv_final$ID[i]
+    id <- snv$ID[i]
     temp2 <- subset(temp, ID == id)
     if (dim(temp2)[1] > 0) {
         hyper_params.df[i,2:4] <- EstimateHyperparameters(temp2$b, temp2$d)
@@ -66,5 +58,19 @@ for (i in 1:n_snvs) {
 }
 
 sc <- sc[,-which(names(sc) == "b")]
-write.table(sc, sc_final_outfile, row.names = F, col.names = T, quote = F, sep="\t")
-write.table(hyper_params.df, sc_hp_final_outfile, row.names = F, col.names = T, quote = F, sep="\t")
+if (sum(names(snv) == "loc") > 0) {
+    snv <- snv[,-which(names(snv) == "loc")]
+}
+write.table(snv, ssm_outfile, row.names = F, col.names = T, quote = F, sep="\t")
+write.table(sc, sc_outfile, row.names = F, col.names = T, quote = F, sep="\t")
+write.table(hyper_params.df, sc_hp_outfile, row.names = F, col.names = T, quote = F, sep="\t")
+
+# Trim the data based on minimum number of cells.
+cell_coverage_by_site <- sc %>% group_by(ID) %>% summarise(n_b = sum(d - a > 0))
+sites_with_min_cells <- cell_coverage_by_site[cell_coverage_by_site$n_b >= MIN_CELLS,]
+trimmed_snv <- subset(snv, ID %in% sites_with_min_cells$ID)
+trimmed_sc <- subset(sc, ID %in% sites_with_min_cells$ID)
+trimmed_sc_hp <- subset(hyper_params.df, ID %in% sites_with_min_cells$ID)
+write.table(snv, ssm_trimmed_outfile, row.names = F, col.names = T, quote = F, sep="\t")
+write.table(sc, sc_trimmed_outfile, row.names = F, col.names = T, quote = F, sep="\t")
+write.table(hyper_params.df, sc_hp_trimmed_outfile, row.names = F, col.names = T, quote = F, sep="\t")
