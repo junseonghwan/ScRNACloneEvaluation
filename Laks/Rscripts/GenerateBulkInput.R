@@ -19,7 +19,7 @@ SNV_FILE <- as.character(config$Value[config$Key == "SNV_PATH"])
 EXON_SNV_FILE <- as.character(config$Value[config$Key == "EXON_SNV_PATH"])
 BULK_BAM_FILE <- as.character(config$Value[config$Key == "BULK"])
 TITAN_CNA_FILE <- as.character(config$Value[config$Key == "TITAN_CNA"])
-MIN_DEPTH <- as.numeric(config$Value[config$Key == "MIN_DEPTH"])
+#MIN_DEPTH <- as.numeric(config$Value[config$Key == "MIN_DEPTH"])
 OUTPUT_PATH <- as.character(config$Value[config$Key == "OUTPUT_PATH"])
 
 snvs <- read.table(SNV_FILE, header=T, sep=",")
