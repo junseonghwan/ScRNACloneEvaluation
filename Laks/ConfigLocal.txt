@@ -1,10 +1,9 @@
 SNV_PATH /Users/seonghwanjun/data/cell-line/phylo/ov2295_clone_snvs.csv
-BULK /Users/seonghwanjun/data/cell-line/bulk/Combined/combined.sorted.bam
-TITAN_CNA /Users/seonghwanjun/data/cell-line/bulk/Combined/cna/results/titan/hmm/optimalClusterSolution/tumor_sample_1_cluster2.segs.txt
+BULK /Users/seonghwanjun/data/cell-line/bulk/A90554A/A90554A.sorted.bam
+TITAN_CNA /Users/seonghwanjun/data/cell-line/bulk/A90554A/hmm/optimalClusterSolution/tumor_sample_1_cluster2.segs.txt
 GERMLINE_VCF /Users/seonghwanjun/data/cell-line/bulk/Normal/DAH370N.germline.vcf.gz
-SC_BAM_PATH /Users/seonghwanjun/data/cell-line/smartseq3/5C,/Users/seonghwanjun/data/cell-line/smartseq3/6F
+SC_BAM_PATH /Users/seonghwanjun/data/cell-line/smartseq3/
 SC_READS_PATH /Users/seonghwanjun/data/cell-line/smartseq3/Reads
-OUTPUT_PATH /Users/seonghwanjun/data/cell-line/phylo/
-OUTPUT_PREFIX final_
+OUTPUT_PATH /Users/seonghwanjun/data/cell-line/bulk/A90554A/
 MIN_DEPTH 20
 MIN_CELLS 1

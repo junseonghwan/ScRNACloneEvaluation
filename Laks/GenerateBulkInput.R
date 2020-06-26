@@ -15,15 +15,14 @@ CONFIG_FILE <- as.character(args[1])
 config <- read.table(CONFIG_FILE, header=F, as.is = T)
 names(config) <- c("Key", "Value")
 
-snv_file <- as.character(config$Value[config$Key == "SNV_PATH"])
-bulk_bam_file <- as.character(config$Value[config$Key == "BULK"])
-titan_cna_file <- as.character(config$Value[config$Key == "TITAN_CNA"])
-sc_bam_path <- as.character(config$Value[config$Key == "SC_BAM_PATH"])
+SNV_FILE <- as.character(config$Value[config$Key == "SNV_PATH"])
+EXON_SNV_FILE <- as.character(config$Value[config$Key == "EXON_SNV_PATH"])
+BULK_BAM_FILE <- as.character(config$Value[config$Key == "BULK"])
+TITAN_CNA_FILE <- as.character(config$Value[config$Key == "TITAN_CNA"])
 MIN_DEPTH <- as.numeric(config$Value[config$Key == "MIN_DEPTH"])
-MIN_CELLS <- as.numeric(config$Value[config$Key == "MIN_CELLS"])
 OUTPUT_PATH <- as.character(config$Value[config$Key == "OUTPUT_PATH"])
 
-snvs <- read.table(snv_file, header=T, sep=",")
+snvs <- read.table(SNV_FILE, header=T, sep=",")
 snvs$loc <- paste(snvs$chrom, snvs$coord, sep=":")
 snvs <- snvs[!duplicated(snvs$loc),]
 sum(duplicated(snvs$loc))
@@ -42,6 +41,7 @@ snvs.exon <- snvs[ret@from,]
 
 # TODO: What about the SNVs that fall on two genes?
 # For now, all we care about is identifying SNVs that fall on an exon.
+# This can be resolved by downstream analysis.
 snvs.exon <- snvs.exon[!duplicated(snvs.exon$loc),]
 dim(snvs.exon)
 head(snvs.exon)
@@ -53,17 +53,18 @@ sbp <- ScanBamParam(which = somatic.gr)
 p_param <- PileupParam(distinguish_nucleotides = TRUE,
                        distinguish_strands = FALSE,
                        include_insertions = FALSE,
+                       min_base_quality = 20, min_mapq = 20,
                        max_depth = 100000)
 
 snvs.exon.df <- data.frame(ID=snvs.exon$ID, CHR=snvs.exon$chrom, POS=snvs.exon$coord,
-                           GENE=snvs.exon$gene, REF=snvs.exon$ref, ALT=snvs.exon$alt,
+                           REF=snvs.exon$ref, ALT=snvs.exon$alt,
                            a = 0, b = 0, d = 0, MajorCN = 0, MinorCN = 0)
-res_somatic <- pileup(file=bulk_bam_file,
+res_somatic <- pileup(file=BULK_BAM_FILE,
                       scanBamParam = sbp,
                       pileupParam = p_param)
 res_somatic$loc <- paste(res_somatic$seqnames, res_somatic$pos, sep=":")
 
-# TODO: pileup returns the results in ordered fashion but in case it doesn't, the below code may not work.
+# TODO: pileup returns the results ordered by chr then position but in case it doesn't, the below code may not work.
 res_somatic$loc <- factor(res_somatic$loc, levels = unique(res_somatic$loc))
 temp <- dcast(res_somatic, loc ~ nucleotide, value.var = "count")
 temp2 <- temp[,1:5]
@@ -81,11 +82,10 @@ snvs.exon.df$d <- snvs.exon.df$a + snvs.exon.df$b
 
 # Get copy number profile.
 # Generate CNV data.
-cnv <- GenerateCNVInput(titan_cna_files[n], snvs.exon.df)
+cnv <- GenerateCNVInput(TITAN_CNA_FILE, snvs.exon.df)
 snvs.exon.df$MajorCN <- cnv$MajorCN
 snvs.exon.df$MinorCN <- cnv$MinorCN
 
-outfile <- paste(OUTPUT_PATH, "ov2295_clone_snvs_exon.csv", sep="/")
 # Remove column "a".
 snvs.exon.df <- snvs.exon.df[,-which(names(snvs.exon.df) == "a")]
-write.table(snvs.exon.df, outfile, row.names = F, col.names = T, quote = F, sep= "\t")
+write.table(snvs.exon.df, EXON_SNV_FILE, row.names = F, col.names = T, quote = F, sep= "\t")
