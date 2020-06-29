@@ -27,5 +27,5 @@ for sample in samples:
 	cell_name = sample_name.split(args.file_pattern_suffix)[0]
 	output_name = os.path.join(output_path, cell_name)
 	command = "sbatch ScVariantCaller.sh " + sample + " " + output_name
-	os.system(command)
-	#print(command)
+	#os.system(command)
+	print(command)
