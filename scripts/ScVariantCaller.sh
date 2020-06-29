@@ -14,6 +14,6 @@ OUTPUT_PATH=$2
 /home/x_seoju/bcftools-1.10.2/bcftools mpileup \
 	-Ou \
 	-f /proj/sc_ml/Tirosh/reference/GRCh37/Ensembl/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa \
-	${BAM_FILE_NAME}.bam | bcftools call -P 0.1 -mv -Oz -o ${OUTPUT_PATH}.vcf.gz
+	${BAM_FILE_NAME} | bcftools call -P 0.1 -mv -Oz -o ${OUTPUT_PATH}.vcf.gz
 
 echo "$(date) Finished variants."
