@@ -36,6 +36,7 @@ if (n_samples != length(titan_cna_files)) {
 }
 
 ssm_outfile <- paste(output_path, "exon_ssm.txt", sep="/")
+ssm_raw_outfile <- paste(output_path, "exon_raw_ssm.txt", sep="/")
 
 # First, we will retrieve all SNVs that fall on exons (no filter is used).
 strelka_exon <- FilterSNVByExon(strelka_vcf_files[1], exon_file, chrs)
@@ -52,3 +53,4 @@ bulk$MinorCN <- cnv$MinorCN
 # Write to file.
 bulk$ID <- paste("s", 1:n_snvs, sep="")
 write.table(bulk, ssm_outfile, row.names = F, col.names = T, quote = F, sep= "\t")
+write.table(strelka_exon, ssm_raw_outfile, row.names = F, col.names = T, quote = F, sep= "\t")
