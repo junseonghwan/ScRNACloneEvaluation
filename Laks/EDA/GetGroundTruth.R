@@ -14,11 +14,13 @@ annotation_file <- "/Users/seonghwanjun/data/cell-line/phylo/ov2295_clone_snvs.c
 
 snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/ssm.txt"
 trimmed_snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/trimmed_ssm.txt"
-pwgs_snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/snv.txt"
+pwgs_snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/ssm_data.txt"
+trimmed_pwgs_snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/trimmed_ssm_data.txt"
 
 gt_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/ssm_gt.txt"
 trimmed_gt_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/trimmed_ssm_gt.txt"
 pwgs_gt_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/gt.txt"
+trimmed_pwgs_gt_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/trimmed_gt.txt"
 
 get_gt <- function(snv, laks_snv, outfile) {
     snv.gr <- ConstructGranges(snv$CHR, snv$POS, width = 0)
@@ -51,10 +53,28 @@ get_gt <- function(snv, laks_snv, outfile) {
 
 snv <- read.table(snv_file, header=T)
 trimmed_snv <- read.table(trimmed_snv_file, header=T)
-pwgs_snv <- read.table(pwgs_snv_file, header=T)
 laks_snv <- read.table(annotation_file, header=T, sep=",")
 
+# SNV and trimmed SNV.
 ret1 <- get_gt(snv, laks_snv, gt_file)
 ret1 <- get_gt(trimmed_snv, laks_snv, trimmed_gt_file)
-ret1 <- get_gt(pwgs_snv, laks_snv, pwgs_gt_file)
 
+# PhyloWGS ssm_data and trimmed_ssm_data.
+pwgs_snv <- read.table(pwgs_snv_file, header=T, as.is = T)
+trimmed_pwgs_snv <- read.table(trimmed_pwgs_snv_file, header=T, as.is = T)
+
+library(plyr)
+pwgs_snv.coord <- ldply(strsplit(pwgs_snv$gene, "_"), function(row) {
+    return(data.frame(CHR=row[1], POS=row[2]))
+});
+trimmed_pwgs_snv.coord <- ldply(strsplit(trimmed_pwgs_snv$gene, "_"), function(row) {
+    return(data.frame(CHR=row[1], POS=row[2]))
+});
+detach("package:plyr", unload = TRUE)
+pwgs_snv$CHR <- as.character(pwgs_snv.coord$CHR)
+pwgs_snv$POS <- as.numeric(as.character(pwgs_snv.coord$POS))
+trimmed_pwgs_snv$CHR <- as.character(trimmed_pwgs_snv.coord$CHR)
+trimmed_pwgs_snv$POS <- as.numeric(as.character(trimmed_pwgs_snv.coord$POS))
+
+ret1 <- get_gt(pwgs_snv, laks_snv, pwgs_gt_file)
+ret1 <- get_gt(trimmed_pwgs_snv, laks_snv, trimmed_pwgs_gt_file)

@@ -51,6 +51,7 @@ cd phylowgs/
 rm *pickle
 python evolve.py --params <path/to/params.josn> <path/to/ssm_data.txt> <path/to/cnv_data.txt>
 # python evolve.py --params /Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/params.json /Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/ssm_data.txt /Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/cnv_data.txt
+# python evolve.py --params /Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/trimmed_params.json /Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/trimmed_ssm_data.txt /Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/trimmed_cnv_data.txt
 ```
 
 # View the results
@@ -66,10 +67,14 @@ python index_data.py
 python -m SimpleHTTPServer
 ```
 
-# How to process the data for our method
+# How to run our method
 + Run `PrepareInput.R`.
     * This file will generate the data based on what was generated for PhyloWGS.
+```
+cd bulk-sc
+./run -c ../Laks/main.config
+```
 
 # Evaluate the results
-- To evaluate PhyloWGS results, first, unzip the trees in `witness/data/cell-line`.
+- To evaluate PhyloWGS results, first, unzip the trees: `witness/data/cell-line-results/cell-line.mutass.zip`.
 - Run `Evaluation.R`.

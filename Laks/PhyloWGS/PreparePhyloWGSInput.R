@@ -25,6 +25,7 @@ LAKS_SNV_FILE <- as.character(config$Value[config$Key == "LAKS_SNV_PATH"])
 TITAN_CNA_FILE <- as.character(config$Value[config$Key == "TITAN_CNA"])
 OUTPUT_PATH <- as.character(config$Value[config$Key == "OUTPUT_PATH"])
 vcf_exon_outfile <- paste(OUTPUT_PATH, "PWGS", "somatic.snvs.exon.vcf", sep="/")
+trimmed_vcf_exon_outfile <- paste(OUTPUT_PATH, "PWGS", "somatic.snvs.exon.trimmed.vcf", sep="/")
 titan_outfile <- paste(OUTPUT_PATH, "PWGS", "titan.modified.segs.txt", sep="/")
 
 if (!dir.exists(paste(OUTPUT_PATH, "PWGS", sep="/"))) {
@@ -91,3 +92,9 @@ write.table(titan, titan_outfile, quote=F, row.names = F, sep="\t")
 
 # Now, we should run the parser included in PhyloWGS to generate SSM and CNV data.
 
+# We will also generate a trimmed VCF file based on SNVs that have single cell coverage.
+trimmed_snvs <- read.table("/Users/seonghwanjun/data/cell-line/bulk/Combined/trimmed_ssm.txt", header=T)
+trimmed_snvs.gr <- ConstructGranges(trimmed_snvs$CHR, trimmed_snvs$POS, width = 0)
+overlaps <- findOverlaps(vcf.df.gr, trimmed_snvs.gr)
+vcf.df.exon.trimmed <- vcf.df[overlaps@from,]
+write.table(vcf.df.exon.trimmed, trimmed_vcf_exon_outfile, quote=F, row.names=F)
