@@ -22,5 +22,5 @@ head(laks_snv_exon)
 
 # Output laks_snv_exon.
 # We will get read counts from the bulk and scRNA-seq at these locations.
-exonic_snv_file <- "/Users/seonghwanjun/data/cell-line/phylo/ov2295_clone_exonic_snvs.txt"
-write.table(laks_snv_exon, exonic_snv_file, quote = F, row.names = F, col.names = T, sep="\t")
+exonic_snv_file <- "/Users/seonghwanjun/data/cell-line/phylo/ov2295_clone_exonic_snvs.csv"
+write.table(laks_snv_exon, exonic_snv_file, quote = F, row.names = F, col.names = T, sep=",")

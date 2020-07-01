@@ -21,37 +21,25 @@ CONFIG_FILE <- as.character(args[1])
 config <- read.table(CONFIG_FILE, header=F, as.is = T)
 names(config) <- c("Key", "Value")
 
-SNV_FILE <- as.character(config$Value[config$Key == "SNV_PATH"])
+#SNV_FILE <- as.character(config$Value[config$Key == "SNV_PATH"])
 EXON_SNV_FILE <- as.character(config$Value[config$Key == "EXON_SNV_PATH"])
 BULK_BAM_FILE <- as.character(config$Value[config$Key == "BULK"])
 TITAN_CNA_FILE <- as.character(config$Value[config$Key == "TITAN_CNA"])
 #MIN_DEPTH <- as.numeric(config$Value[config$Key == "MIN_DEPTH"])
-OUTPUT_PATH <- as.character(config$Value[config$Key == "OUTPUT_PATH"])
+BULK_OUTPUT_FILE <- as.character(config$Value[config$Key == "SNV_PATH"])
 
-snvs <- read.table(SNV_FILE, header=T, sep=",")
-snvs$loc <- paste(snvs$chrom, snvs$coord, sep=":")
-snvs <- snvs[!duplicated(snvs$loc),]
-sum(duplicated(snvs$loc))
-
-exon_file <- system.file("extdata", "exons.bed", package = "ScRNAClone")
-exons <- read.table(exon_file, header=F)
-names(exons) <- c("CHR", "START", "END", "GENE")
-exons$CHR <- as.character(exons$CHR)
 chrs <- c(1:22, "X", "Y")
 nucleotides <- c("A","C","G","T")
 
-snvs.gr <- ConstructGranges(snvs$chrom, snvs$coord, width = 0)
-exons.gr <- ConstructGranges(exons$CHR, exons$START, width = exons$END - exons$START)
-ret <- findOverlaps(snvs.gr, exons.gr)
-snvs.exon <- snvs[ret@from,]
-
-# TODO: What about the SNVs that fall on two genes?
-# For now, all we care about is identifying SNVs that fall on an exon.
-# This can be resolved by downstream analysis.
-snvs.exon <- snvs.exon[!duplicated(snvs.exon$loc),]
-dim(snvs.exon)
-head(snvs.exon)
+snvs.exon <- read.table(EXON_SNV_FILE, header=T, sep=",")
+snvs.exon$loc <- paste(snvs.exon$chrom, snvs.exon$coord, sep=":")
 snvs.exon$ID <- paste("s", 1:dim(snvs.exon)[1], sep="")
+sum(duplicated(snvs.exon$loc)) # Check that there aren't any duplicates.
+
+# exon_file <- system.file("extdata", "exons.bed", package = "ScRNAClone")
+# exons <- read.table(exon_file, header=F)
+# names(exons) <- c("CHR", "START", "END", "GENE")
+# exons$CHR <- as.character(exons$CHR)
 
 # TODO: Provide feature for specifying min_base_quality, min_mapq, and min_depth in Config.txt.
 # Get read counts from the BAM files.
@@ -95,4 +83,6 @@ snvs.exon.df$MinorCN <- cnv$MinorCN
 
 # Remove column "a".
 snvs.exon.df <- snvs.exon.df[,-which(names(snvs.exon.df) == "a")]
-write.table(snvs.exon.df, EXON_SNV_FILE, row.names = F, col.names = T, quote = F, sep= "\t")
+# This will output bulk file for all exonic snvs.
+# We will retrieve reads from single cells and remove any SNVs without any cell coverage.
+write.table(snvs.exon.df, BULK_OUTPUT_FILE, row.names = F, col.names = T, quote = F, sep= "\t")
