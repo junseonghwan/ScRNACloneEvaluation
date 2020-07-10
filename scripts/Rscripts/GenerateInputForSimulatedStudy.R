@@ -1,7 +1,7 @@
 args = commandArgs(trailingOnly=TRUE)
 print(args)
 data_path <- args[1]
-#data_path <- "/Users/seonghwanjun/data/simulation/binary/case4/sim0/rep0"
+#data_path <- "/Users/seonghwanjun/data/simulation/large/binary/case3/sim0/rep0"
 
 library(dplyr)
 library(matrixStats)
@@ -19,7 +19,7 @@ hyper_params.df <- data.frame(ID = ssm$ID, alpha = rep(1, n_snvs), beta = rep(1,
 sc$b <- sc$d - sc$a
 temp <- subset(sc, d > 0)
 for (i in 1:n_snvs) {
-  id <- ssm$ID[i]
+  id <- as.character(ssm$ID[i])
   temp2 <- subset(temp, ID == id)
   if (dim(temp2)[1] > 0) {
     hyper_params.df[i,2:4] <- EstimateHyperparameters(temp2$b, temp2$d)

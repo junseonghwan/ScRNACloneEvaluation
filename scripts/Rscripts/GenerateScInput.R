@@ -25,6 +25,7 @@ SNV_PATH <- values[keys == "SNV_PATH"]
 OUTPUT_PATH <- values[keys == "OUTPUT_PATH"]
 SC_READS_PATH <- values[keys == "SC_READS_PATH"]
 MIN_CELLS <- as.numeric(values[keys == "MIN_CELLS"])
+MIN_READS <- as.numeric(values[keys == "MIN_READS"])
 
 ssm_outfile <- paste(OUTPUT_PATH, "ssm.txt", sep="/")
 sc_outfile <- paste(OUTPUT_PATH, "sc.txt", sep="/")
@@ -34,6 +35,8 @@ sc_hp_outfile <- paste(OUTPUT_PATH, "sc_hp.txt", sep="/")
 snv <- read.table(SNV_PATH, header = T)
 # Extract read counts from single cells. This function will write the data to file.
 sc <- CombineSingleCellReads(SC_READS_PATH)
+# Output the raw file first.
+write.table(sc, paste(OUTPUT_PATH, "sc_raw.txt", sep="/"), quote=F, row.names = F, col.names = T)
 n_cells <- length(unique(sc$Cell))
 n_cells
 length(unique(sc$ID))
@@ -41,11 +44,25 @@ length(snv$ID)
 
 sc$ID <- factor(sc$ID, levels = snv$ID)
 
-# Trim the data based on minimum number of cells.
-cell_coverage_by_site <- sc %>% group_by(ID) %>% summarise(n_b = sum(d - a > 0))
+sc_min_reads <- subset(sc, d >= MIN_READS)
+head(sc_min_reads)
+
+# Trim the data based on minimum number of cell coverage.
+cell_coverage_by_site <- sc_min_reads %>% group_by(ID) %>% summarise(n_b = sum(d - a > 0), n_d = sum(d > 0))
 sites_with_min_cells <- cell_coverage_by_site[cell_coverage_by_site$n_b >= MIN_CELLS,]
-snv <- subset(snv, ID %in% sites_with_min_cells$ID)
-sc <- subset(sc, ID %in% sites_with_min_cells$ID)
+sc <- subset(sc_min_reads, ID %in% sites_with_min_cells$ID)
+head(sc)
+length(unique(sc$Cell))
+
+# Remove cells that do not contribute any meaningful signal.
+temp <- sc %>% group_by(Cell) %>% summarise(n_b = sum(d - a > 0))
+summary(temp$n_b)
+cells_to_keep <- temp[temp$n_b >= 2,]$Cell
+sc <- subset(sc, Cell %in% cells_to_keep)
+dim(sc)
+length(unique(sc$Cell))
+
+snv <- subset(snv, ID %in% unique(sc$ID))
 
 # Now, we estimate the hyperparameters for the single cell reads.
 n_snvs <- dim(snv)[1]
@@ -54,7 +71,7 @@ sc$b <- sc$d - sc$a
 temp <- subset(sc, d > 0)
 for (i in 1:n_snvs) {
     id <- snv$ID[i]
-    temp2 <- subset(temp, ID == id)
+    temp2 <- subset(temp, as.character(ID) == as.character(id))
     if (dim(temp2)[1] > 0) {
         hyper_params.df[i,2:4] <- EstimateHyperparameters(temp2$b, temp2$d)
     }
@@ -67,3 +84,4 @@ if (sum(names(snv) == "loc") > 0) {
 write.table(snv, ssm_outfile, row.names = F, col.names = T, quote = F, sep="\t")
 write.table(sc, sc_outfile, row.names = F, col.names = T, quote = F, sep="\t")
 write.table(hyper_params.df, sc_hp_outfile, row.names = F, col.names = T, quote = F, sep="\t")
+
