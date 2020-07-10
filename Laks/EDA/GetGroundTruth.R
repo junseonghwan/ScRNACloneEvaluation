@@ -12,15 +12,9 @@ library(sabre)
 
 annotation_file <- "/Users/seonghwanjun/data/cell-line/phylo/ov2295_clone_snvs.csv"
 
-snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/ssm.txt"
-trimmed_snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/trimmed_ssm.txt"
-pwgs_snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/ssm_data.txt"
-trimmed_pwgs_snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/trimmed_ssm_data.txt"
-
-gt_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/ssm_gt.txt"
-trimmed_gt_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/trimmed_ssm_gt.txt"
-pwgs_gt_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/gt.txt"
-trimmed_pwgs_gt_file <- "/Users/seonghwanjun/data/cell-line/bulk/Combined/PWGS/trimmed_gt.txt"
+sc_file <- "/Users/seonghwanjun/data/cell-line/bulk/OV2295/sc.txt"
+snv_file <- "/Users/seonghwanjun/data/cell-line/bulk/OV2295/ssm.txt"
+gt_file <- "/Users/seonghwanjun/data/cell-line/bulk/OV2295/ssm_gt.txt"
 
 get_gt <- function(snv, laks_snv, outfile) {
     snv.gr <- ConstructGranges(snv$CHR, snv$POS, width = 0)
@@ -42,39 +36,24 @@ get_gt <- function(snv, laks_snv, outfile) {
     # The tree is as follows:
     # (((A,B), (C,D)), (E,F)), ((G,H),I))).
     # We will remove any annotation that is not consistent with the tree.
-    valid_clusters <- c("A", "B", "C", "D", "E", "F", "G", "H", "I",
-                        "A_B", "C_D", "E_F", "G_H",
-                        "G_H_I", "A_B_C_D", "E_F_G_H_I",
-                        "A_B_C_D_E_F_G_H_I")
-    snv_with_valid_clones <- snv[(snv$clone_name %in% valid_clusters),]
-    write.table(x = snv_with_valid_clones, file = outfile, row.names = F, col.names = T, quote = F)
-    return(snv_with_valid_clones)
+    # valid_clusters <- c("A", "B", "C", "D", "E", "F", "G", "H", "I",
+    #                     "A_B", "C_D", "E_F", "G_H",
+    #                     "G_H_I", "A_B_C_D", "E_F_G_H_I",
+    #                     "A_B_C_D_E_F_G_H_I")
+    # snv_with_valid_clones <- snv[(snv$clone_name %in% valid_clusters),]
+    write.table(x = snv, file = outfile, row.names = F, col.names = T, quote = F)
+    return(snv)
 }
 
 snv <- read.table(snv_file, header=T)
-trimmed_snv <- read.table(trimmed_snv_file, header=T)
 laks_snv <- read.table(annotation_file, header=T, sep=",")
 
 # SNV and trimmed SNV.
-ret1 <- get_gt(snv, laks_snv, gt_file)
-ret1 <- get_gt(trimmed_snv, laks_snv, trimmed_gt_file)
+ret <- get_gt(snv, laks_snv, gt_file)
 
-# PhyloWGS ssm_data and trimmed_ssm_data.
-pwgs_snv <- read.table(pwgs_snv_file, header=T, as.is = T)
-trimmed_pwgs_snv <- read.table(trimmed_pwgs_snv_file, header=T, as.is = T)
-
-library(plyr)
-pwgs_snv.coord <- ldply(strsplit(pwgs_snv$gene, "_"), function(row) {
-    return(data.frame(CHR=row[1], POS=row[2]))
-});
-trimmed_pwgs_snv.coord <- ldply(strsplit(trimmed_pwgs_snv$gene, "_"), function(row) {
-    return(data.frame(CHR=row[1], POS=row[2]))
-});
-detach("package:plyr", unload = TRUE)
-pwgs_snv$CHR <- as.character(pwgs_snv.coord$CHR)
-pwgs_snv$POS <- as.numeric(as.character(pwgs_snv.coord$POS))
-trimmed_pwgs_snv$CHR <- as.character(trimmed_pwgs_snv.coord$CHR)
-trimmed_pwgs_snv$POS <- as.numeric(as.character(trimmed_pwgs_snv.coord$POS))
-
-ret1 <- get_gt(pwgs_snv, laks_snv, pwgs_gt_file)
-ret1 <- get_gt(trimmed_pwgs_snv, laks_snv, trimmed_pwgs_gt_file)
+valid_clusters <- c("A", "B", "C", "D", "E", "F", "G", "H", "I",
+                    "A_B", "C_D", "E_F", "G_H",
+                    "G_H_I", "A_B_C_D", "E_F_G_H_I",
+                    "A_B_C_D_E_F_G_H_I")
+# We need to manually annotate these if possible.
+ret[!(ret$clone_name %in% valid_clusters),]

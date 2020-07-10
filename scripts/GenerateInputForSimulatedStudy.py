@@ -15,7 +15,6 @@ parser.add_argument('--sbegin', help="Sim begin.", type=int, default = 0)
 parser.add_argument('--send', help="Sim end (not inclusive).", type=int, default = 5)
 parser.add_argument('--rbegin', help="Rep begin.", type=int, default = 0)
 parser.add_argument('--rend', help="Rep end (not inclusive).", type=int, default = 20)
-parser.add_argument('-o', '--overwrite', help="Overwrite main.config if it exists.", action="store_true")
 args = parser.parse_args()
 
 CASE_PATH = args.case_path

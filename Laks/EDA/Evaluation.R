@@ -7,8 +7,8 @@ trimmed_gt <- read.table(trimmed_gt_file, header=T)
 trimmed_pwgs_gt <- read.table(trimmed_pwgs_file, header=T)
 
 # PhyloWGS.
-pgs_mcmc_file <- "/Users/seonghwanjun/ScRNACloneEvaluation/phylowgs/mcmc_samples.txt"
-pgs_tree_path <- "/Users/seonghwanjun/ScRNACloneEvaluation/phylowgs/witness/data/cell-line-results-trimmed/cell-line.mutass/"
+pgs_mcmc_file <- "/Users/seonghwanjun/ScRNACloneEvaluation/phylowgs/witness/data/cell-line-results/mcmc_samples.txt"
+pgs_tree_path <- "/Users/seonghwanjun/ScRNACloneEvaluation/phylowgs/witness/data/cell-line-results/cell-line.mutass/"
 mcmc_samples <- read.table(pgs_mcmc_file, header=T, sep="\t")
 mcmc_samples <- mcmc_samples[mcmc_samples$Iteration >= 0,]
 best_idx <- which.max(mcmc_samples$LLH)

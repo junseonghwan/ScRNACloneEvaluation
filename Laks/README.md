@@ -77,4 +77,5 @@ cd bulk-sc
 
 # Evaluate the results
 - To evaluate PhyloWGS results, first, unzip the trees: `witness/data/cell-line-results/cell-line.mutass.zip`.
+- Copy `phylowgs/mcmc_samples.txt` to `witness/data/cell-line-results/`
 - Run `Evaluation.R`.

@@ -1,3 +1,6 @@
 [submodule "B-SCITE"]
 	path = B-SCITE
 	url = https://github.com/junseonghwan/B-SCITE.git
+[submodule "BulkScRNAClone"]
+	path = BulkScRNAClone
+	url = https://github.com/junseonghwan/BulkScRNAClone.git

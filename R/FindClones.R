@@ -1,5 +1,5 @@
-source("R/VAFclusterEM.R")
-source("R/bestAICsearch.R")
+install.packages("/Users/seonghwanjun/ScRNACloneEvaluation/B-SCITE/VAFclusterEMpackage/VAFclusterEM/", repos=NULL,type="source")
+library(VAFclusterEM)
 
 #' @export
 GetClones <- function(vafs,
@@ -8,7 +8,8 @@ GetClones <- function(vafs,
                       coverage = 1000,
                       minK = 1,
                       iteration_count = 100) {
-    vafs <- vafs + 1e-6 # In case vaf = 0.
+    vafs[vafs == 0] <- vafs[vafs == 0] + 1e-6 # In case vaf = 0.
+    vafs[vafs == 1] <- vafs[vafs == 1] - 1e-6 # In case vaf = 1.
     mutation_count <- length(vafs)
     chains <- ExtractChains(file_path, mutation_count)
     df <- data.frame(vaf=vafs, chain=chains)
