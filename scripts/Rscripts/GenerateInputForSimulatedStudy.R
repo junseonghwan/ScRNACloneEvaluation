@@ -1,7 +1,7 @@
 args = commandArgs(trailingOnly=TRUE)
 print(args)
 data_path <- args[1]
-#data_path <- "/Users/seonghwanjun/data/simulation/large/binary/case3/sim0/rep0"
+#data_path <- "/Users/seonghwanjun/data/simulation/binary/case3/sim0/rep0"
 
 library(dplyr)
 library(matrixStats)

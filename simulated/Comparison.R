@@ -9,14 +9,14 @@ sourceCpp("src/rcpp_hello_world.cpp")
 source("R/FindClones.R")
 source("R/EvaluationFunctions.R")
 
-n_cases <- 4 # not inclusive
-sim_path <- "/Users/seonghwanjun/data/simulation/binary"
-expression_levels <- c(0, 10, 20, 40)
+n_cases <- 1 # not inclusive
+sim_path <- "/Users/seonghwanjun/data/simulation/large/sparse/binary/"
+expression_levels <- c(5, 10, 20, 40)
 df <- data.frame()
 for (case in 1:n_cases) {
     sim_case_path <- paste(sim_path, "/case", (case-1), "/sim0", sep="")
     # Check that our simulation runs have completed.
-    CheckSimulationCompleted(sim_case_path)
+    CheckSimulationCompleted(sim_case_path, rep_end = 10)
     vmeas <- ComputeVMeasure(sim_case_path)
     cp_err <- GetCellPrevError(sim_case_path)
     df <- rbind(df, data.frame(Method="Ours", ExprLevel=expression_levels[case], VMeasure = vmeas, CellPrevErr = cp_err))
