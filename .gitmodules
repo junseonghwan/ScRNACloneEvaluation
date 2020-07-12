@@ -4,6 +4,3 @@
 [submodule "BulkScRNAClone"]
 	path = BulkScRNAClone
 	url = https://github.com/junseonghwan/BulkScRNAClone.git
-[submodule "pyclone"]
-	path = pyclone
-	url = https://github.com/Roth-Lab/pyclone.git
