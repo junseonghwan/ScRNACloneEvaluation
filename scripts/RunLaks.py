@@ -54,6 +54,8 @@ for rep_no in range(REP_BEGIN, REP_END+1):
         if args.w_cells:
             rep_bulk_path = REP_PATH + "snv.txt"
             output_path = REP_PATH + "/w_cells/"
+            rep_scRNA_path = REP_PATH + "sc.txt"
+            rep_hyper_params_path = REP_PATH + "sc_hp.txt"
             f.write("bulk_data_path: " + rep_bulk_path + "\n")
             f.write("sc_rna_data_path: " + rep_scRNA_path + "\n")
             f.write("hyperparams_path: " + rep_hyper_params_path + "\n")
@@ -61,8 +63,6 @@ for rep_no in range(REP_BEGIN, REP_END+1):
             rep_bulk_path = REP_PATH + "snv_wo_cn.txt"
             output_path = REP_PATH + "/wo_cells/"
             f.write("bulk_data_path: " + rep_bulk_path + "\n")
-        rep_scRNA_path = REP_PATH + "sc.txt"
-        rep_hyper_params_path = REP_PATH + "sc_hp.txt"
 
         f.write("output_path: " + output_path + "\n")
         f.write("n_mcmc_iter: " + str(N_MCMC_ITER) + "\n")
