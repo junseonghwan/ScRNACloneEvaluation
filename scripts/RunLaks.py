@@ -45,7 +45,10 @@ np.random.seed(SEED)
 for rep_no in range(REP_BEGIN, REP_END+1):
     REP_PATH = DATA_PATH + "/rep" + str(rep_no) + "/"
     # write main.config file to REP_PATH
-    config_file_path = REP_PATH + "/main.config"
+    if args.w_cells:
+        config_file_path = REP_PATH + "/main.config"
+    else:
+        config_file_path = REP_PATH + "/main_no_sc.config"
     if not os.path.exists(config_file_path) or args.overwrite:
         print("Writing a new main.config file for " + REP_PATH)
         rep_seed = np.random.randint(100000000)
@@ -80,7 +83,6 @@ for rep_no in range(REP_BEGIN, REP_END+1):
 
     run_command = "sbatch "
     run_command += PATH_TO_EXECUTABLE + " "
-    run_command += REP_PATH + " "
     run_command += config_file_path
     print(run_command)
     #os.system(run_command)
