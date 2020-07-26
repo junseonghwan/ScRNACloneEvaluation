@@ -1,12 +1,13 @@
 library(GenomicRanges)
 library(ScRNAClone)
 
+# TODO: Location to GTF file to be provided as an argument.
 gtf <- read.table("/Users/seonghwanjun/data/references/Homo_sapiens.GRCh37.75.gtf", header=F, sep="\t")
 names(gtf) <- c("seqname", "source", "feature", "start", "end", "score", "strand", "frame", "attribute")
 exon.gtf <- subset(gtf, feature == "exon")
 dim(exon.gtf)
 
-laks_snv <- read.table("/Users/seonghwanjun/data/cell-line/phylo/ov2295_clone_snvs.csv", header=T, sep=",")
+laks_snv <- read.table("data/Laks/ov2295_clone_snvs.csv", header=T, sep=",")
 laks_snv$loc <- paste(laks_snv$chrom, laks_snv$coord, sep=":")
 laks_snv <- laks_snv[!duplicated(laks_snv$loc),]
 dim(laks_snv)
@@ -22,5 +23,5 @@ head(laks_snv_exon)
 
 # Output laks_snv_exon.
 # We will get read counts from the bulk and scRNA-seq at these locations.
-exonic_snv_file <- "/Users/seonghwanjun/data/cell-line/phylo/ov2295_clone_exonic_snvs.csv"
+exonic_snv_file <- "data/Laks/ov2295_clone_exonic_snvs.csv"
 write.table(laks_snv_exon, exonic_snv_file, quote = F, row.names = F, col.names = T, sep=",")

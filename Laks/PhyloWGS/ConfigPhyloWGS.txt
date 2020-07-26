@@ -1,8 +1,0 @@
-VCF_PATH /proj/sc_ml/cellline/bulk/Combined/results/variants/somatic.snvs.vcf.gz
-EXON_SNV_PATH /proj/sc_ml/cellline/phylo/ov2295_clone_snvs.csv
-TITAN_CNA /proj/sc_ml/cellline/bulk/Combined/cna/results/titan/hmm/optimalClusterSolution/tumor_sample_1_cluster2.segs.txt
-SC_BAM_PATH /proj/sc_ml/cellline/smart-seq3/myStarAlign/
-SC_READS_PATH /proj/sc_ml/cellline/smart-seq3/myStarAlign/Reads
-OUTPUT_PATH /proj/sc_ml/cellline/bulk/Combined/
-MIN_CELLS 1
-PHYLOWGS_SNV_PATH /proj/sc_ml/cellline/bulk/Combined/PWGS/ssm_data.txt

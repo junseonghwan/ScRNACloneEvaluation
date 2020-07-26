@@ -1,7 +1,0 @@
-samples:
-  tumor_sample_1:  /proj/sc_ml/cellline/bulk/OV2295/ov2295.sorted.bam
-  normal_sample_1:  /proj/sc_ml/cellline/bulk/Normal/DAH370N.bam
-
-
-pairings:
-  tumor_sample_1:  normal_sample_1
