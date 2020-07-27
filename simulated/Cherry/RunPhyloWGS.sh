@@ -1,9 +1,19 @@
 #!/bin/bash
 
-#module load Python/3.7.0-anaconda-5.3.0-extras-nsc1
 module load Python/2.7.14-nsc1-gcc-2018a-eb
 
-conda activate py27
+SIMUL_SSM_PATH=$1
+PWGS_SSM_PATH=$2
+PWGS_CNV_PATH=$3
+OUTPUT_PATH=$4
+BURN_IN=$5
+MCMC_ITER=$6
+MH_ITER=$7
+SEED=$8
+
+Rscript --vanilla Rscripts/GenerateInputForPhyloWGS.R \
+	${SIMUL_SSM_PATH} 
 wait
 
-python /proj/sc_ml/users/x_seoju/ScRNACloneEvaluation/phylowgs/evolve.py $1 $2 -O $3 -B $4 -s $5 -i $6 -r $7
+python /proj/sc_ml/users/x_seoju/ScRNACloneEvaluation/phylowgs/evolve.py ${PWGS_SSM_PATH} \
+	${PWGS_CNV_PATH} -O ${OUTPUT_PATH} -B ${BURN_IN} -s ${MCMC_ITER} -i ${MH_ITER} -r ${SEED}

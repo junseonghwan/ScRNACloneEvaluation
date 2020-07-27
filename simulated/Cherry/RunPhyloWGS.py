@@ -17,17 +17,18 @@ np.random.seed(SEED)
 for rep_no in range(REP_BEGIN, REP_END):
     REP_PATH = SIMUL_PATH + "/rep" + str(rep_no) + "/"
     rep_seed = np.random.randint(100000000)
-    rep_bulk_path = REP_PATH + "bulk.txt"
-    rep_cnv_path = REP_PATH + "cnv.txt"
+    rep_pwgs_bulk_path = REP_PATH + "pwgs_snv.txt"
+    rep_pwgs_cnv_path = REP_PATH + "pwgs_cnv.txt"
     rep_output_path = REP_PATH + "phylowgs/"
-    
+
     if not os.path.exists(rep_output_path):
         os.makedirs(rep_output_path)
 
     run_command = "sbatch "
     run_command += PATH_TO_EXECUTABLE + " "
-    run_command += rep_bulk_path + " "
-    run_command += rep_cnv_path + " "
+    run_command += REP_PATH + " "
+    run_command += rep_pwgs_bulk_path + " "
+    run_command += rep_pwgs_cnv_path + " "
     run_command += rep_output_path + " "
     run_command += str(BURN_IN) + " "
     run_command += str(N_MCMC_ITER) + " "
