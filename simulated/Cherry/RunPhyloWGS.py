@@ -3,7 +3,7 @@ import sys
 import os
 import numpy as np
 
-PATH_TO_EXECUTABLE  =  "run_phylowgs.sh" # path to executable
+PATH_TO_EXECUTABLE  =  "RunPhyloWGS.sh" # path to executable
 SEED = int(sys.argv[1])
 SIMUL_PATH = sys.argv[2]
 REP_BEGIN = int(sys.argv[3])
