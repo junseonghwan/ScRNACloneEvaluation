@@ -50,8 +50,9 @@ print(num_samples)
 # Sample proportions vector for each clone from Dirichlet.
 proportions = np.random.dirichlet(np.repeat(args.dirichlet_param, num_clones), num_samples)
 for sample in range(num_samples):
-	bam_list_file = os.path.join(args.output_path, args.bam_out_name + "_" + str(sample) + ".txt")
-	bam_out = os.path.join(args.output_path, args.bam_out_name + "_" + str(sample) + ".bam")
+	sample_outpath = os.path.join(args.output_path, "Sample" + str(sample))
+	bam_list_file = os.path.join(sample_outpath, args.bam_out_name + ".txt")
+	bam_out = os.path.join(sample_outpath, args.bam_out_name + ".bam")
 
 	sample_props = proportions[sample]
 	sampled_idxs = []
@@ -71,7 +72,7 @@ for sample in range(num_samples):
 		f.write(lines)
 	f.close()
 
-	command = "sbatch /home/x_seoju/ScRNACloneEvaluation/Laks/MergeBAMs.sh " 
+	command = "sbatch /proj/sc_ml/users/x_seoju/ScRNACloneEvaluation/Laks/MergeBAMs.sh " 
 	command += bam_list_file + " "
 	command += bam_out
 	#print(command)
