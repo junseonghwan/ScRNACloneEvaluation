@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#SBATCH -A snic2020-5-280
+#SBATCH -n 1
+#SBATCH -t 12:00:00
+#SBATCH --mem 4G
+#SBATCH -J PhyloWGS
+
 module load R/3.6.3-nsc1-gcc-7.3.0
 module load Python/2.7.14-nsc1-gcc-2018a-eb
 
