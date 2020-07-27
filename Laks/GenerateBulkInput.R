@@ -31,7 +31,7 @@ BULK_OUTPUT_FILE <- as.character(config$Value[config$Key == "SNV_PATH"])
 chrs <- c(1:22, "X", "Y")
 nucleotides <- c("A","C","G","T")
 
-snvs.exon <- read.table(EXON_SNV_FILE, header=T, sep=",")
+snvs.exon <- read.table(EXON_SNV_FILE, header=T, sep="\t")
 snvs.exon$loc <- paste(snvs.exon$chrom, snvs.exon$coord, sep=":")
 snvs.exon$ID <- paste("s", 1:dim(snvs.exon)[1], sep="")
 sum(duplicated(snvs.exon$loc)) # Check that there aren't any duplicates.
@@ -59,14 +59,16 @@ res_somatic <- pileup(file=BULK_BAM_FILE,
                       pileupParam = p_param)
 res_somatic$loc <- paste(res_somatic$seqnames, res_somatic$pos, sep=":")
 
-# TODO: pileup returns the results ordered by chr then position but in case it doesn't, the below code may not work.
+# pileup returns the results ordered by chr then position.
 res_somatic$loc <- factor(res_somatic$loc, levels = unique(res_somatic$loc))
 temp <- dcast(res_somatic, loc ~ nucleotide, value.var = "count")
 temp2 <- temp[,1:5]
 temp2[is.na(temp2)] <- 0
+dim(temp2)
 snvs.exon.df$loc <- paste(snvs.exon.df$CHR, snvs.exon.df$POS, sep=":")
-# Check that the locations match -- if this value is not 1, there is a problem.
-mean(snvs.exon.df$loc == temp2$loc)
+dim(snvs.exon.df)
+# Check that the locations match -- if this value is not 1, not every site has a read.
+mean(snvs.exon.df$loc == as.character(temp2$loc))
 for (base in nucleotides) {
     idx <- which(snvs.exon.df$REF == base)
     snvs.exon.df[idx,"a"] <- temp2[idx,base]
