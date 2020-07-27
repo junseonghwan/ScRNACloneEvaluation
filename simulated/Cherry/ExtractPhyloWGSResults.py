@@ -4,12 +4,11 @@ import os
 import numpy as np
 
 PATH_TO_EXECUTABLE  =  "ExtractPhyloWGSResults.sh" # path to executable
-SEED = int(sys.argv[1])
-SIMUL_PATH = sys.argv[2]
-SIM_BEGIN = int(sys.argv[3])
-SIM_END = int(sys.argv[4])
-REP_BEGIN = int(sys.argv[5])
-REP_END = int(sys.argv[6])
+SIMUL_PATH = sys.argv[1]
+SIM_BEGIN = int(sys.argv[2])
+SIM_END = int(sys.argv[3])
+REP_BEGIN = int(sys.argv[4])
+REP_END = int(sys.argv[5])
 
 for sim_no in range(SIM_BEGIN, SIM_END):
 	sim_path = os.path.join(SIMUL_PATH, "sim" + str(sim_no))
