@@ -6,4 +6,4 @@ module load Python/2.7.14-nsc1-gcc-2018a-eb
 conda activate py27
 wait
 
-python phylowgs/evolve.py $1 $2 -O $3 -B $4 -s $5 -i $6 -r $7
+python /proj/sc_ml/users/x_seoju/ScRNACloneEvaluation/phylowgs/evolve.py $1 $2 -O $3 -B $4 -s $5 -i $6 -r $7
