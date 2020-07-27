@@ -25,9 +25,6 @@ parser.add_argument('-d', '--dirichlet_param', help="Dirichlet parameter.", type
 parser.add_argument('-s', '--suffix', help="BAM file suffix.", type=str, default=".bam")
 args = parser.parse_args()
 
-if not os.path.exists(args.output_path):
-	os.makedirs(args.output_path)
-
 cell2clone = pd.read_csv(args.cell_to_clone_file)
 
 bam_paths = args.bam_paths.split(",") # this is a list.
@@ -51,6 +48,9 @@ print(num_samples)
 proportions = np.random.dirichlet(np.repeat(args.dirichlet_param, num_clones), num_samples)
 for sample in range(num_samples):
 	sample_outpath = os.path.join(args.output_path, "Sample" + str(sample))
+	if not os.path.exists(args.output_path):
+		os.makedirs(args.output_path)
+
 	bam_list_file = os.path.join(sample_outpath, args.bam_out_name + ".txt")
 	bam_out = os.path.join(sample_outpath, args.bam_out_name + ".bam")
 
