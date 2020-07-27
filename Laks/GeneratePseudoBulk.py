@@ -48,8 +48,8 @@ print(num_samples)
 proportions = np.random.dirichlet(np.repeat(args.dirichlet_param, num_clones), num_samples)
 for sample in range(num_samples):
 	sample_outpath = os.path.join(args.output_path, "Sample" + str(sample))
-	if not os.path.exists(args.output_path):
-		os.makedirs(args.output_path)
+	if not os.path.exists(sample_outpath):
+		os.makedirs(sample_outpath)
 
 	bam_list_file = os.path.join(sample_outpath, args.bam_out_name + ".txt")
 	bam_out = os.path.join(sample_outpath, args.bam_out_name + ".bam")
