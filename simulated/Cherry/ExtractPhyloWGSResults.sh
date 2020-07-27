@@ -6,6 +6,8 @@
 #SBATCH --mem 4G
 #SBATCH -J ProcessPhyloWGS
 
+module load Python/2.7.14-nsc1-gcc-2018a-eb
+
 REP_PATH=$1
 
 cd ${REP_PATH}
