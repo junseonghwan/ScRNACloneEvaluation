@@ -13,7 +13,7 @@ REP_END = int(sys.argv[5])
 for sim_no in range(SIM_BEGIN, SIM_END):
 	sim_path = os.path.join(SIMUL_PATH, "sim" + str(sim_no))
 	for rep_no in range(REP_BEGIN, REP_END):
-	    rep_path = os.path.join(sim_path + "rep" + str(rep_no))
+	    rep_path = os.path.join(sim_path, "rep" + str(rep_no))
 
 	    run_command = "sbatch "
 	    run_command += PATH_TO_EXECUTABLE + " "
