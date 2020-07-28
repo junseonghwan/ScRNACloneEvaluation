@@ -15,7 +15,8 @@ for sim_no in range(SIM_BEGIN, SIM_END):
 	for rep_no in range(REP_BEGIN, REP_END):
 	    rep_path = os.path.join(sim_path, "rep" + str(rep_no))
 
-	    run_command = "sbatch "
+	    #run_command = "sbatch "
+	    run_command = "./"
 	    run_command += PATH_TO_EXECUTABLE + " "
 	    run_command += rep_path
 

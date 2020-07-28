@@ -10,9 +10,18 @@ module load Python/2.7.14-nsc1-gcc-2018a-eb
 
 REP_PATH=$1
 
-cd ${REP_PATH}/phylowgs
-mkdir results/
-cd results
-python2 /proj/sc_ml/users/x_seoju/ScRNACloneEvaluation/phylowgs/write_results.py results ../trees.zip results.summ.json.gz results.muts.json.gz results.mutass.zip
-mkdir trees
-unzip -d trees/ results.mutass.zip
+mkdir ${REP_PATH}/phylowgs/results/
+
+python2 /proj/sc_ml/users/x_seoju/ScRNACloneEvaluation/phylowgs/write_results.py results ${REP_PATH}/phylowgs/trees.zip ${REP_PATH}/phylowgs/results/results.summ.json.gz ${REP_PATH}/phylowgs/results/results.muts.json.gz ${REP_PATH}/phylowgs/results/results.mutass.zip
+wait
+
+mkdir ${REP_PATH}/phylowgs/results/trees
+unzip -d ${REP_PATH}/phylowgs/results/trees ${REP_PATH}/phylowgs/results/results.mutass.zip
+wait
+
+gunzip ${REP_PATH}/phylowgs/results/results.summ.json.gz
+wait
+
+Rscript --vanilla Rscripts/ExtractPhyloWGSResults.R ${REP_PATH}/phylowgs
+
+echo "End."
