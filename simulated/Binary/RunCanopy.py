@@ -15,8 +15,8 @@ parser.add_argument('--sbegin', help="Sim begin.", type=int, default = 0)
 parser.add_argument('--send', help="Sim end (not inclusive).", type=int, default = 10)
 parser.add_argument('--rbegin', help="Rep begin.", type=int, default = 0)
 parser.add_argument('--rend', help="Rep end (not inclusive).", type=int, default = 10)
-parser.add_argument('-kbegin', , help="Minimum number of clones.", type=int, default = 3)
-parser.add_argument('-kend', , help="Minimum number of clones.", type=int, default = 12)
+parser.add_argument('--kbegin', , help="Minimum number of clones.", type=int, default = 3)
+parser.add_argument('--kend', , help="Minimum number of clones.", type=int, default = 12)
 args = parser.parse_args()
 
 CASE_PATH = args.case_path
