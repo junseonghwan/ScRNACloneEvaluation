@@ -46,15 +46,13 @@ LAMBDA_MAX = 1
 GAMMA_MAX = 10
 SEQ_ERR = 0.001
 VAR_CP_PROB = 0.25
-SC_DROPOUT_ALPHA0 = 0.01
+SC_DROPOUT_ALPHA0 = 0.5
 SC_DROPOUT_BETA0 = 1
 SC_BURSTY_ALPHA0 = 1
 SC_BURSTY_BETA0 = 0.01
 GEOMETRIC_MEAN = (1 if args.geometric else 0)
-print(GEOMETRIC_MEAN)
 
 np.random.seed(SEED)
-
 
 for sim_no in range(SIM_BEGIN, SIM_END):
     SIMUL_PATH = CASE_PATH + "/sim" + str(sim_no)
