@@ -49,7 +49,7 @@ sc_var <- as.matrix(sc_var[,-1])
 sc_depth <- as.matrix(sc_depth[,-1])
 
 # Call variant using threshold.
-sc_mut_matrix <- matrix(0, nrow = length(bulk$ID), ncol = length(cells))
+sc_mut_matrix <- matrix(0, ncol = length(bulk$ID), nrow = length(cells))
 sc_mut_matrix[sc_var >= THRESHOLD] <- 1
 rownames(sc_mut_matrix) <- as.character(cells)
 colnames(sc_mut_matrix) <- as.character(bulk$ID)
