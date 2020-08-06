@@ -4,38 +4,40 @@ SEED <- as.numeric(args[1])
 #SEED <- 157
 REP_PATH <- args[2]
 #REP_PATH <- "/Users/seonghwanjun/data/simulation/binary/case1/sim0/rep0/"
-MCMC_ITER <- as.numeric(args[3])
-#MCMC_ITER <- 2000
-THRESHOLD <- as.numeric(args[4])
-#THRESHOLD <- 1
-
-OUTPUT_PATH <- paste(REP_PATH, "ddClone", sep="/")
-#OUTPUT_PATH <- "/Users/seonghwanjun/data/simulation/binary/case1/sim0/rep0/ddClone"
+K_BEGIN <- as.numeric(args[3])
+#K_BEGIN <- 4
+K_END <- as.numeric(args[4])
+#K_END <- 6
+SNV_PATH <- paste(REP_PATH, "genotype_ssm.txt", sep="/")
+OUTPUT_PATH <- paste(REP_PATH, "canopy", sep="/")
+#OUTPUT_PATH <- "/Users/seonghwanjun/data/simulation/binary/case1/sim0/rep0/canopy"
 setwd(OUTPUT_PATH)
 
 library(Canopy)
 
-canopy_path <- "/Users/seonghwanjun/data/cell-line/bulk/multi-region/reps/rep1/Canopy"
-if (dir.exists(canopy_path)) {
-    dir.create(canopy_path)
+set.seed(SEED)
+
+if (dir.exists(OUTPUT_PATH)) {
+    dir.create(OUTPUT_PATH)
 }
 
-R <- read.table("/Users/seonghwanjun/data/cell-line/bulk/multi-region/reps/rep1/R.txt", header = T, as.is = T)
-X <- read.table("/Users/seonghwanjun/data/cell-line/bulk/multi-region/reps/rep1/X.txt", header = T, as.is = T)
-R <- as.matrix(R)
-X <- as.matrix(X)
-rownames(R)
-colnames(R)
+bulk <- read.table(SNV_PATH, header=T, sep="\t")
+X <- as.matrix(bulk$d - bulk$b)
+R <- as.matrix(bulk$b)
+rownames(X) <- bulk$ID
+rownames(R) <- bulk$ID
+colnames(X) <- "Sample1"
+colnames(R) <- "Sample1"
 
-K <- 3:10
-numchain <- 3
+K <- K_BEGIN:K_END
+numchains <- 3
 min_iter <- 10000
 max_iter <- 100000
-projname <- "cell-line-rep1"
+#projname <- "canopy"
 
-sampchain <- canopy.sample.nocna(R, X, K, numchain,
+sampchain <- canopy.sample.nocna(R, X, K, numchains,
                                  max.simrun = max_iter, min.simrun = min_iter,
-                                 writeskip = 200, projectname = projname, cell.line=TRUE, plot.likelihood=F)
+                                 writeskip = 200, cell.line=TRUE, plot.likelihood=F)
 
 burnin <- 10
 thin <- 5
@@ -62,4 +64,5 @@ canopy.plottree(output.tree, pdf = FALSE)
 # Output clustering of mutations for clustering accuracy evaluation.
 clone_name <- paste(output.tree$sna[,2], output.tree$sna[,3], sep="_")
 predicted <- cbind(ID=rownames(output.tree$sna), Cluster=clone_name)
-write.table(predicted, "/Users/seonghwanjun/data/cell-line/bulk/multi-region/reps/rep1/Canopy/predicted.csv", sep=",", col.names=T, row.names=F, quote=F)
+write.table(predicted, paste(OUTPUT_PATH, "predicted.csv", sep="/"), sep=",", col.names=T, row.names=F, quote=F)
+

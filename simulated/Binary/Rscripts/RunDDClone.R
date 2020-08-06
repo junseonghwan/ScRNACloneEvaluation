@@ -11,6 +11,10 @@ THRESHOLD <- as.numeric(args[4])
 
 OUTPUT_PATH <- paste(REP_PATH, "ddClone", sep="/")
 #OUTPUT_PATH <- "/Users/seonghwanjun/data/simulation/binary/case1/sim0/rep0/ddClone"
+
+if (!dir.exists(OUTPUT_PATH)) {
+    dir.create(OUTPUT_PATH, recursive = TRUE)
+}
 setwd(OUTPUT_PATH)
 
 library(ddclone)
@@ -50,9 +54,6 @@ sc_mut_matrix[sc_var >= THRESHOLD] <- 1
 rownames(sc_mut_matrix) <- as.character(cells)
 colnames(sc_mut_matrix) <- as.character(bulk$ID)
 
-if (!dir.exists(OUTPUT_PATH)) {
-    dir.create(OUTPUT_PATH, recursive = TRUE)
-}
 ddCloneInputObj <- make.ddclone.input(bulkDat = bulkDat, genDat = sc_mut_matrix, outputPath = OUTPUT_PATH, nameTag = '')
 ddCloneRes <- ddclone(dataObj = ddCloneInputObj,
                       outputPath = OUTPUT_PATH, tumourContent = 1.0,
