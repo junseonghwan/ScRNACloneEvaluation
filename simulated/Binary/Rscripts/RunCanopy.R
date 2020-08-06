@@ -13,7 +13,7 @@ OUTPUT_PATH <- paste(REP_PATH, "canopy", sep="/")
 #K_END <- 12
 #OUTPUT_PATH <- "/Users/seonghwanjun/data/simulation/binary/case1/sim0/rep0/canopy"
 
-library(Canopy)
+library(canopy)
 
 set.seed(SEED)
 
