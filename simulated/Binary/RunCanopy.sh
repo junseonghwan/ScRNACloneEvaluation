@@ -4,7 +4,7 @@
 #SBATCH -n 1
 #SBATCH -t 48:00:00
 #SBATCH --mem 8G
-#SBATCH -J ddClone
+#SBATCH -J Canopy
 
 echo "$(date) Run begins."
 
