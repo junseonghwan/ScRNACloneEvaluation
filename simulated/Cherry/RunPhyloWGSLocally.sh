@@ -15,5 +15,8 @@ Rscript --vanilla Rscripts/GenerateInputForPhyloWGS.R \
 	${SIMUL_SSM_PATH} 
 wait
 
-python /Users/seonghwanjun/ScRNACloneEvaluation/phylowgs/evolve.py ${PWGS_SSM_PATH} \
-	${PWGS_CNV_PATH} -O ${OUTPUT_PATH} -B ${BURN_IN} -s ${MCMC_ITER} -i ${MH_ITER} -r ${SEED}
+#python /Users/seonghwanjun/ScRNACloneEvaluation/phylowgs/evolve.py ${PWGS_SSM_PATH} \
+#	${PWGS_CNV_PATH} -O ${OUTPUT_PATH} -B ${BURN_IN} -s ${MCMC_ITER} -i ${MH_ITER} -r ${SEED}
+
+python /Users/seonghwanjun/ScRNACloneEvaluation/phylowgs/multievolve.py --num-chains 4 --ssms ${PWGS_SSM_PATH} \
+	--cnvs ${PWGS_CNV_PATH} -O ${OUTPUT_PATH} -B ${BURN_IN} -s ${MCMC_ITER} -i ${MH_ITER}

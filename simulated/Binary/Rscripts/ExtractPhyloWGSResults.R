@@ -6,7 +6,7 @@ if (length(args) != 1) {
 }
 
 PWGS_PATH <- as.character(args[1])
-#PWGS_PATH <- "/Users/seonghwanjun/data/simulation/cherry/sim0/rep0/phylowgs/"
+#PWGS_PATH <- "/Users/seonghwanjun/data/simulation/binary/case0/sim0/rep1/phylowgs/"
 print(PWGS_PATH)
 
 library(rjson)
@@ -50,7 +50,8 @@ ProcessSample <- function(pwgs_tree_path, idx, tree) {
     }
 
     #clusters <- sort(unique(phylowgs_clusters$Cluster))
-    return (ComputeAncestralMatrix(phylowgs_clusters, parental_matrix))
+    A <- ComputeAncestralMatrix(phylowgs_clusters, parental_matrix)
+    return(list("ancestral_matrix"=A, "clustering"=phylowgs_clusters))
 }
 
 mcmc_samples <- read.table(pwgs_mcmc_file, header=T, sep="\t")
@@ -59,9 +60,14 @@ summ.json <- fromJSON(file=paste(pwgs_results_path, "results.summ.json", sep="/"
 best_idx <- which.max(mcmc_samples$LLH)
 
 # Write the ancestral matrix.
+tree <- summ.json$trees[[best_idx+1]]$structure
+ret <- ProcessSample(pwgs_tree_path, best_idx, tree)
+A_best <- ret$ancestral_matrix
+pwgs_clustering <-ret$clustering
 pwgs_ancestral_matrix_path <- paste(PWGS_PATH, "ancestral_matrix.txt", sep="/")
-A_best <- ProcessSample(pwgs_tree_path, best_idx)
 write.table(A_best, pwgs_ancestral_matrix_path, quote=F, row.names = F, col.names = F)
+pwgs_clustering_path <- paste(PWGS_PATH, "clustering.txt", sep="/")
+write.table(pwgs_clustering, pwgs_clustering_path, quote=F, row.names = F, col.names = F)
 
 # Select 100 samples.
 sample_count <- 100

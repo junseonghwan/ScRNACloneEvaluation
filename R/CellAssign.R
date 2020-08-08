@@ -36,9 +36,9 @@ AssignCells <- function(cell_data,
     if (!("b" %in% names(cell_data))) {
         cell_data$b <- cell_data$d - cell_data$a
     }
-    var_reads <- dcast(cell_data, Cell ~ ID, value.var = "b")
+    var_reads <- reshape2::dcast(cell_data, Cell ~ ID, value.var = "b")
     var_reads[is.na(var_reads)] <- 0
-    total_reads <- dcast(cell_data, Cell ~ ID, value.var = "d")
+    total_reads <- reshape2::dcast(cell_data, Cell ~ ID, value.var = "d")
     total_reads[is.na(total_reads)] <- 0
 
     dropout_hp_mat <- matrix(c(dropout_hp$alpha, dropout_hp$beta), nrow = snv_count, ncol=2, byrow=T)

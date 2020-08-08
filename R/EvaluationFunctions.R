@@ -117,23 +117,25 @@ GetDDCloneResults<-function(sim_case_path,
 GetBSciteResults <- function(sim_case_path, rep_end = 20)
 {
     mean_abs_err <- rep(NA, rep_end)
-    vmeasures <- rep(NA, rep_end)
+    ancestral_metric <- rep(NA, rep_end)
     for (rep_no in 0:(rep_end-1)) {
         rep_path <- paste(sim_case_path, "/rep", rep_no, sep="")
         ssms <- read.table(paste(rep_path, "genotype_ssm.txt", sep="/"), header=T, as.is=TRUE)
         vafs <- ssms$b/ssms$d
         mutation_count <- length(vafs)
 
-        cell_prevs <- read.table(paste(rep_path, "cellular_prev.csv", sep="/"), header=F, sep=",")
+        cell_prevs <- read.table(paste(rep_path, "cellular_prev.csv", sep="/"), header=F, sep="\t")
         cluster_labels <- read.table(paste(rep_path, "cluster_labels.txt", sep="/"), header=F, sep=",")
 
         bscite_output <- paste(rep_path, "bscite", "bscite.matrices", sep="/")
         if (file.exists(bscite_output)) {
             bscite_clones <- GetClones(vafs, bscite_output)
-            ret <- vmeasure(cluster_labels$V2, bscite_clones)
+            df <- data.frame(ID=ssms$ID, Cluster=bscite_clones, VAF=vafs)
             mean_abs_err[rep_no+1] <- mean(abs(vafs - cell_prevs$V2))
-            vmeasures[rep_no+1] <- ret$v_measure
+            #ret <- vmeasure(cluster_labels$V2, bscite_clones)
+            #vmeasures[rep_no+1] <- ret$v_measure
+            write.table(data.frame(ID=ssms$ID, Cluster=bscite_clones), paste(rep_path, "/bscite/results.txt", sep=""), quote=F, row.names=F)
         }
     }
-    return(data.frame(vmeasure=vmeasures, mean_abs_err=mean_abs_err))
+    #return(data.frame(vmeasure=vmeasures, mean_abs_err=mean_abs_err))
 }

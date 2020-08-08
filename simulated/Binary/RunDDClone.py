@@ -11,6 +11,7 @@ import numpy as np
 PATH_TO_EXECUTABLE  =  "RunDDClone.sh" 
 parser = argparse.ArgumentParser(description='Script to batch run simulation studies.')
 parser.add_argument('case_path', help="Path to simulation case.", type=str)
+parser.add_argument('-t', '--threshold', help="Path to simulation case.", type=int, default = 3)
 parser.add_argument('--sbegin', help="Sim begin.", type=int, default = 0)
 parser.add_argument('--send', help="Sim end (not inclusive).", type=int, default = 10)
 parser.add_argument('--rbegin', help="Rep begin.", type=int, default = 0)
@@ -23,7 +24,7 @@ SIM_BEGIN = args.sbegin
 SIM_END = args.send
 REP_BEGIN = args.rbegin
 REP_END = args.rend
-SC_VAR_THRESHOLD = 1
+SC_VAR_THRESHOLD = args.threshold
 
 for sim_no in range(SIM_BEGIN, SIM_END):
 	SIMUL_PATH = CASE_PATH + "/sim" + str(sim_no)

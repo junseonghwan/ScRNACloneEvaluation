@@ -9,12 +9,14 @@ PWGS_PATH <- as.character(args[1])
 #PWGS_PATH <- "/Users/seonghwanjun/data/simulation/cherry/sim0/rep0/phylowgs/"
 print(PWGS_PATH)
 
+CHAIN_COUNT <- 4
+
 library(rjson)
 
 # PhyloWGS.
-pwgs_mcmc_file <- paste(PWGS_PATH, "mcmc_samples.txt", sep="/")
 pwgs_results_path <- paste(PWGS_PATH, "results", sep="/")
-pwgs_tree_path <- paste(PWGS_PATH, "results/trees", sep="/")
+pwgs_tree_path <- paste(pwgs_results_path, "trees", sep="/")
+A_truth <- as.matrix(read.table("/Users/seonghwanjun/data/simulation/cherry/sim0/rep0/ancestral_matrix.csv", sep=","))
 
 # Compute ancestral matrix.
 ComputeAncestralMatrix <- function(phylowgs_clusters, parental_matrix) {
@@ -30,8 +32,8 @@ ComputeAncestralMatrix <- function(phylowgs_clusters, parental_matrix) {
     return(A)
 }
 
-ProcessSample <- function(pwgs_tree_path, idx, tree) {
-    json<-fromJSON(file=paste(pwgs_tree_path, "/", idx, ".json", sep=""))
+ProcessSample <- function(pwgs_tree_path, tree) {
+    json<-fromJSON(file=pwgs_tree_path)
     n_clusters<-length(json$mut_assignments)
     phylowgs_clusters<-data.frame()
     for (i in 1:n_clusters) {
@@ -53,30 +55,33 @@ ProcessSample <- function(pwgs_tree_path, idx, tree) {
     return (ComputeAncestralMatrix(phylowgs_clusters, parental_matrix))
 }
 
-mcmc_samples <- read.table(pwgs_mcmc_file, header=T, sep="\t")
-mcmc_samples <- mcmc_samples[mcmc_samples$Iteration >= 0,]
 summ.json <- fromJSON(file=paste(pwgs_results_path, "results.summ.json", sep="/"))
-best_idx <- which.max(mcmc_samples$LLH)
-
-# Write the ancestral matrix.
-pwgs_ancestral_matrix_path <- paste(PWGS_PATH, "ancestral_matrix.txt", sep="/")
-A_best <- ProcessSample(pwgs_tree_path, best_idx)
-write.table(A_best, pwgs_ancestral_matrix_path, quote=F, row.names = F, col.names = F)
 
 # Select 100 samples.
-sample_count <- 100
-step_size <- length(mcmc_samples$Iteration) / sample_count
-iterations <- mcmc_samples$Iteration + 1
-sample_idxs <- iterations[seq(0, length(iterations), step_size)] - 1
+pwgs_trees <- list.files(pwgs_tree_path, pattern = "*.json")
+pwgs_trees <- pwgs_trees[order(nchar(pwgs_trees), pwgs_trees)]
+tree_count <- length(pwgs_trees)
+
+sample_idxs <- seq(1, tree_count, 10)
+sample_count <- length(sample_idxs)
 # Compute the error in the ancestral matrix.
 errors <- rep(0, sample_count)
 for (i in 1:length(sample_idxs)) {
     idx <- sample_idxs[i]
-    tree <- summ.json$trees[[idx+1]]$structure
-    A_idx <- ProcessSample(pwgs_tree_path, idx, tree)
-    errors[i] <- mean(A_idx)
+    tree <- summ.json$trees[[idx]]$structure
+    A_idx <- ProcessSample(paste(pwgs_tree_path, pwgs_trees[idx], sep="/"), tree)
+    errors[i] <- mean(abs(A_idx - A_truth))
 }
 
 write.table(x = errors, file = paste(PWGS_PATH, "ancestral_error.txt", sep=""), quote=F, row.names = F, col.names = F)
 
-
+llh <- rep(0, tree_count)
+for (i in 1:tree_count) {
+    llh[i] <- summ.json$trees[[i]]$llh
+}
+best_idx <- which.max(llh)
+summ.json$trees[[best_idx+1]]$populations
+best_tree <- summ.json$trees[[best_idx+1]]$structure
+best_A <- ProcessSample(paste(pwgs_tree_path, pwgs_trees[best_idx], sep="/"), tree)
+mean(abs(best_A - A_truth))
+write.table(best_A, "/Users/seonghwanjun/data/simulation/cherry/sim0/rep0/phylowgs/ancestral_matrix.txt", row.names = F, quote = F, col.names = F)
