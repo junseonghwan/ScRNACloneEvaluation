@@ -20,7 +20,6 @@ setwd(OUTPUT_PATH)
 library(ddclone)
 library(dplyr)
 library(reshape2)
-library(tictoc)
 
 # Load the bulk data.
 SNV_PATH <- paste(REP_PATH, "genotype_ssm.txt", sep="/")
