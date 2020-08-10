@@ -1,13 +1,13 @@
 args = commandArgs(trailingOnly=TRUE)
 print(args)
 SEED <- as.numeric(args[1])
-#SEED <- 157
 REP_PATH <- args[2]
-#REP_PATH <- "/Users/seonghwanjun/data/simulation/binary/case1/sim0/rep0/"
 MCMC_ITER <- as.numeric(args[3])
-#MCMC_ITER <- 2000
 THRESHOLD <- as.numeric(args[4])
-#THRESHOLD <- 1
+#SEED <- 157
+#REP_PATH <- "/Users/seonghwanjun/data/simulation/binary/case1/sim0/rep0/"
+#MCMC_ITER <- 5
+#THRESHOLD <- 3
 
 OUTPUT_PATH <- paste(REP_PATH, "ddClone", sep="/")
 #OUTPUT_PATH <- "/Users/seonghwanjun/data/simulation/binary/case1/sim0/rep0/ddClone"
@@ -20,6 +20,7 @@ setwd(OUTPUT_PATH)
 library(ddclone)
 library(dplyr)
 library(reshape2)
+library(tictoc)
 
 # Load the bulk data.
 SNV_PATH <- paste(REP_PATH, "genotype_ssm.txt", sep="/")
@@ -55,12 +56,20 @@ rownames(sc_mut_matrix) <- as.character(cells)
 colnames(sc_mut_matrix) <- as.character(bulk$ID)
 
 ddCloneInputObj <- make.ddclone.input(bulkDat = bulkDat, genDat = sc_mut_matrix, outputPath = OUTPUT_PATH, nameTag = '')
+
+start <- proc.time()
 ddCloneRes <- ddclone(dataObj = ddCloneInputObj,
                       outputPath = OUTPUT_PATH, tumourContent = 1.0,
                       numOfIterations = MCMC_ITER, thinning = 10, burnIn = 0,
                       seed = SEED)
+end <- proc.time()
+diff <- end - start
+elapsed_time_seconds <- diff[3]
 
 # Output the results.
 df <- ddCloneRes$df
 output_file <- paste(OUTPUT_PATH, "results.txt", sep="/")
 write.table(df, file = output_file, row.names = F, col.names = T, quote=F)
+
+timing_file <- paste(OUTPUT_PATH, "timing.txt", sep="/")
+write.table(elapsed_time_seconds, file = timing_file, row.names = F, col.names = F, quote=F)

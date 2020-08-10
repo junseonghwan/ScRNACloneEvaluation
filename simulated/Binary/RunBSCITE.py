@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import glob
 import os
 import re
@@ -60,4 +61,11 @@ for sim_no in range(SIM_BEGIN, SIM_END):
 		run_command += "-r "  + str(r)  + " "
 		run_command += "-l "  + str(l)  + " "
 		run_command += "-o "  + OUTPUT_FILES_PREFIX + " "
+
+		start = datetime.datetime.now()
 		os.system(run_command)
+		end = datetime.datetime.now()
+		result = end - start
+		exec_time_in_milli_seconds = result.total_seconds() * 1000
+		with open(os.path.join(REP_PATH, "bscite/timing.txt"), "w+") as f:
+			f.write(str(exec_time_in_milli_seconds) + "\n")
