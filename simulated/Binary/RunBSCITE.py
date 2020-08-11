@@ -13,7 +13,7 @@ PATH_TO_PROCESSING_SCRIPT  =  "./RunBSCITE.sh" # path to B-SCITE executable
 PATH_TO_EXECUTABLE  =  "/Users/seonghwanjun/ScRNACloneEvaluation/B-SCITE/src/bscite.exe" # path to B-SCITE executable
 parser = argparse.ArgumentParser(description='Script to batch run simulation studies.')
 parser.add_argument('case_path', help="Path to simulation case.", type=str)
-parser.add_argument('-t', '--threshold', help="Path to simulation case.", type=int, default = 3)
+parser.add_argument('-t', '--threshold', help="Path to simulation case.", type=int, default = 1)
 parser.add_argument('--sbegin', help="Sim begin.", type=int, default = 0)
 parser.add_argument('--send', help="Sim end (not inclusive).", type=int, default = 10)
 parser.add_argument('--rbegin', help="Rep begin.", type=int, default = 0)

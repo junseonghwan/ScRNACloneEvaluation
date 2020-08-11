@@ -41,11 +41,14 @@ THINNING = args.thinning
 BURN_IN = args.burn_in
 
 # Default values.
-ALPHA0_MAX = 50 
-LAMBDA_MAX = 1
-GAMMA_MAX = 10
+ALPHA0_MAX = 10 
+LAMBDA_MAX = 0.8
+GAMMA_MAX = 0.3
+ALPHA0_MIN = 0.1
+LAMBDA_MIN = 0.1
+GAMMA_MIN = 0.1
 SEQ_ERR = 0.001
-VAR_CP_PROB = 0.25
+VAR_CP_PROB = 0.5
 SC_DROPOUT_ALPHA0 = 0.5
 SC_DROPOUT_BETA0 = 1
 SC_BURSTY_ALPHA0 = 1
@@ -85,6 +88,9 @@ for sim_no in range(SIM_BEGIN, SIM_END):
             f.write("alpha0_max: " + str(ALPHA0_MAX) + "\n")
             f.write("lambda_max: " + str(LAMBDA_MAX) + "\n")
             f.write("gamma_max: " + str(GAMMA_MAX) + "\n")
+            f.write("alpha0_min: " + str(ALPHA0_MIN) + "\n")
+            f.write("lambda_min: " + str(LAMBDA_MIN) + "\n")
+            f.write("gamma_min: " + str(GAMMA_MIN) + "\n")
             f.write("seq_err: " + str(SEQ_ERR) + "\n")
             f.write("var_cp_prob: " + str(VAR_CP_PROB) + "\n")
             f.write("sc_dropout_alpha0: " + str(SC_DROPOUT_ALPHA0) + "\n")
