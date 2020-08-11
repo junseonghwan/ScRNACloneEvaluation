@@ -38,5 +38,5 @@ for sim_no in range(SIM_BEGIN, SIM_END):
 		run_command += REP_PATH + " "
 		run_command += str(args.mcmc) + " "
 		run_command += str(SC_VAR_THRESHOLD)
-		#os.system(run_command)
-		print(run_command)
+		os.system(run_command)
+		#print(run_command)

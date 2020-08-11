@@ -18,6 +18,6 @@ Rscript --vanilla Rscripts/GenerateInputForSimulatedStudy.R \
 	${SIMUL_PATH} 
 wait
 
-/home/x_seoju/BulkScRNAClone/run -c ${CONFIG_FILE}
+/proj/sc_ml/users/x_seoju/ScRNACloneEvaluation/BulkScRNAClone/run -c ${CONFIG_FILE}
 
 echo "$(date) Run finished."
