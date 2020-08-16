@@ -25,3 +25,10 @@ head(laks_snv_exon)
 # We will get read counts from the bulk and scRNA-seq at these locations.
 exonic_snv_file <- "data/Laks/ov2295_clone_exonic_snvs.csv"
 write.table(laks_snv_exon, exonic_snv_file, quote = F, row.names = F, col.names = T, sep=",")
+
+# Generate BED file for Strelka SNV.
+head(laks_snv_exon)
+bed <- laks_snv_exon[,c("chrom", "coord")]
+colnames(bed) <- c("chrom", "chromStart")
+bed$chromEnd <- bed$chromStart
+write.table(bed, "data/Laks/ov2295_clone_exonic_snvs.bed", quote=F, row.names = F)
