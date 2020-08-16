@@ -18,6 +18,4 @@ wait
 gunzip ${REP_PATH}/phylowgs/results/results.summ.json.gz
 wait
 
-Rscript --vanilla Rscripts/ExtractPhyloWGSResults.R ${REP_PATH}/phylowgs
-
 echo "End."

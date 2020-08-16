@@ -5,16 +5,19 @@ if (length(args) != 1) {
     stop("Terminating...")
 }
 
-PWGS_PATH <- as.character(args[1])
-#PWGS_PATH <- "/Users/seonghwanjun/data/simulation/binary/case0/sim0/rep1/phylowgs/"
-print(PWGS_PATH)
+REP_PATH <- as.character(args[1])
+#REP_PATH <- "/Users/seonghwanjun/data/simulation/binary4/case0/sim0/rep0/"
+PWGS_PATH <- paste(REP_PATH, "phylowgs", sep="/")
+print(REP_PATH)
+
+CHAIN_COUNT <- 4
 
 library(rjson)
 
 # PhyloWGS.
-pwgs_mcmc_file <- paste(PWGS_PATH, "mcmc_samples.txt", sep="/")
 pwgs_results_path <- paste(PWGS_PATH, "results", sep="/")
-pwgs_tree_path <- paste(PWGS_PATH, "results/trees", sep="/")
+pwgs_tree_path <- paste(pwgs_results_path, "trees", sep="/")
+A_truth <- as.matrix(read.table(paste(REP_PATH, "ancestral_matrix.csv", sep="/"), sep=","))
 
 # Compute ancestral matrix.
 ComputeAncestralMatrix <- function(phylowgs_clusters, parental_matrix) {
@@ -30,8 +33,8 @@ ComputeAncestralMatrix <- function(phylowgs_clusters, parental_matrix) {
     return(A)
 }
 
-ProcessSample <- function(pwgs_tree_path, idx, tree) {
-    json<-fromJSON(file=paste(pwgs_tree_path, "/", idx, ".json", sep=""))
+ProcessSample <- function(pwgs_tree_path, tree) {
+    json<-fromJSON(file=pwgs_tree_path)
     n_clusters<-length(json$mut_assignments)
     phylowgs_clusters<-data.frame()
     for (i in 1:n_clusters) {
@@ -49,40 +52,38 @@ ProcessSample <- function(pwgs_tree_path, idx, tree) {
         parental_matrix[i,tree[[i]]+1] <- 1
     }
 
-    #clusters <- sort(unique(phylowgs_clusters$Cluster))
-    A <- ComputeAncestralMatrix(phylowgs_clusters, parental_matrix)
-    return(list("ancestral_matrix"=A, "clustering"=phylowgs_clusters))
+    ret <- list(cluster=phylowgs_clusters, A=ComputeAncestralMatrix(phylowgs_clusters, parental_matrix))
+    return (ret)
 }
 
-mcmc_samples <- read.table(pwgs_mcmc_file, header=T, sep="\t")
-mcmc_samples <- mcmc_samples[mcmc_samples$Iteration >= 0,]
 summ.json <- fromJSON(file=paste(pwgs_results_path, "results.summ.json", sep="/"))
-best_idx <- which.max(mcmc_samples$LLH)
-
-# Write the ancestral matrix.
-tree <- summ.json$trees[[best_idx+1]]$structure
-ret <- ProcessSample(pwgs_tree_path, best_idx, tree)
-A_best <- ret$ancestral_matrix
-pwgs_clustering <-ret$clustering
-pwgs_ancestral_matrix_path <- paste(PWGS_PATH, "ancestral_matrix.txt", sep="/")
-write.table(A_best, pwgs_ancestral_matrix_path, quote=F, row.names = F, col.names = F)
-pwgs_clustering_path <- paste(PWGS_PATH, "clustering.txt", sep="/")
-write.table(pwgs_clustering, pwgs_clustering_path, quote=F, row.names = F, col.names = F)
 
 # Select 100 samples.
-sample_count <- 100
-step_size <- length(mcmc_samples$Iteration) / sample_count
-iterations <- mcmc_samples$Iteration + 1
-sample_idxs <- iterations[seq(0, length(iterations), step_size)] - 1
+pwgs_trees <- list.files(pwgs_tree_path, pattern = "*.json")
+pwgs_trees <- pwgs_trees[order(nchar(pwgs_trees), pwgs_trees)]
+tree_count <- length(pwgs_trees)
+
+sample_idxs <- seq(1, tree_count, 10)
+sample_count <- length(sample_idxs)
 # Compute the error in the ancestral matrix.
 errors <- rep(0, sample_count)
 for (i in 1:length(sample_idxs)) {
     idx <- sample_idxs[i]
-    tree <- summ.json$trees[[idx+1]]$structure
-    A_idx <- ProcessSample(pwgs_tree_path, idx, tree)
-    errors[i] <- mean(A_idx)
+    tree <- summ.json$trees[[idx]]$structure
+    ret <- ProcessSample(paste(pwgs_tree_path, pwgs_trees[idx], sep="/"), tree)
+    errors[i] <- mean(abs(ret$A - A_truth))
 }
 
-write.table(x = errors, file = paste(PWGS_PATH, "ancestral_error.txt", sep=""), quote=F, row.names = F, col.names = F)
+write.table(x = errors, file = paste(PWGS_PATH, "ancestral_error.txt", sep="/"), quote=F, row.names = F, col.names = F)
 
-
+llh <- rep(0, tree_count)
+for (i in 1:tree_count) {
+    llh[i] <- summ.json$trees[[i]]$llh
+}
+best_idx <- which.max(llh)
+summ.json$trees[[best_idx+1]]$populations
+best_tree <- summ.json$trees[[best_idx+1]]$structure
+best_ret <- ProcessSample(paste(pwgs_tree_path, pwgs_trees[best_idx], sep="/"), best_tree)
+mean(abs(best_ret$A - A_truth))
+write.table(best_ret$A, paste(PWGS_PATH, "ancestral_matrix.txt", sep="/") , row.names = F, quote = F, col.names = F)
+write.table(best_ret$cluster, paste(PWGS_PATH, "clustering.txt", sep="/"), row.names = F, quote = F, col.names = F)
