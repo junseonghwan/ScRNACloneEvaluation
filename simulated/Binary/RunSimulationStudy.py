@@ -15,10 +15,10 @@ parser.add_argument('--sbegin', help="Sim begin.", type=int, default = 0)
 parser.add_argument('--send', help="Sim end (not inclusive).", type=int, default = 10)
 parser.add_argument('--rbegin', help="Rep begin.", type=int, default = 0)
 parser.add_argument('--rend', help="Rep end (not inclusive).", type=int, default = 10)
-parser.add_argument('-m', '--mcmc', help="Number of MCMC iterations.", type=int, default = 1000)
+parser.add_argument('-m', '--mcmc', help="Number of MCMC iterations.", type=int, default = 2000)
 parser.add_argument('-p', '--mh', help="Number of MH iterations.", type=int, default = 2000)
 parser.add_argument('-t', '--thinning', help="Thinning interval.", type=int, default = 10)
-parser.add_argument('-u', '--burn_in', help="Burn_in.", type=int, default = 100)
+parser.add_argument('-u', '--burn_in', help="Burn_in.", type=int, default = 500)
 parser.add_argument('-o', '--overwrite', help="Overwrite main.config if it exists.", action="store_true")
 parser.add_argument('--geometric', help="Use geometric mean for single cell likelihood.", action="store_true")
 parser.add_argument('--genotype', help="Use genotype information.", action="store_true")
@@ -43,7 +43,7 @@ BURN_IN = args.burn_in
 # Default values.
 ALPHA0_MAX = 10 
 LAMBDA_MAX = 0.8
-GAMMA_MAX = 0.3
+GAMMA_MAX = 0.5
 ALPHA0_MIN = 0.1
 LAMBDA_MIN = 0.1
 GAMMA_MIN = 0.1
